@@ -11,6 +11,7 @@
 		645FF5F21E8A1D89001D5563 /* SwiftRaterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645FF5F11E8A1D89001D5563 /* SwiftRaterTests.swift */; };
 		645FF5F41E8A1D89001D5563 /* SwiftRater.h in Headers */ = {isa = PBXBuildFile; fileRef = 645FF5E61E8A1D89001D5563 /* SwiftRater.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		645FF6331E8A2052001D5563 /* SwiftRater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645FF6321E8A2052001D5563 /* SwiftRater.swift */; };
+		645FF63C1E8A2AF6001D5563 /* UsageDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645FF63B1E8A2AF6001D5563 /* UsageDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +32,7 @@
 		645FF5F11E8A1D89001D5563 /* SwiftRaterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftRaterTests.swift; sourceTree = "<group>"; };
 		645FF5F31E8A1D89001D5563 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		645FF6321E8A2052001D5563 /* SwiftRater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftRater.swift; sourceTree = "<group>"; };
+		645FF63B1E8A2AF6001D5563 /* UsageDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsageDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 				645FF5E61E8A1D89001D5563 /* SwiftRater.h */,
 				645FF5E71E8A1D89001D5563 /* Info.plist */,
 				645FF6321E8A2052001D5563 /* SwiftRater.swift */,
+				645FF63B1E8A2AF6001D5563 /* UsageDataManager.swift */,
 			);
 			path = SwiftRater;
 			sourceTree = "<group>";
@@ -203,6 +206,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				645FF6331E8A2052001D5563 /* SwiftRater.swift in Sources */,
+				645FF63C1E8A2AF6001D5563 /* UsageDataManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,7 +270,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -313,7 +317,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
