@@ -11,6 +11,7 @@
 		645FF5F21E8A1D89001D5563 /* SwiftRaterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645FF5F11E8A1D89001D5563 /* SwiftRaterTests.swift */; };
 		645FF5F41E8A1D89001D5563 /* SwiftRater.h in Headers */ = {isa = PBXBuildFile; fileRef = 645FF5E61E8A1D89001D5563 /* SwiftRater.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		645FF6331E8A2052001D5563 /* SwiftRater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645FF6321E8A2052001D5563 /* SwiftRater.swift */; };
+		AC6538B01E8AA6F4009EFDA4 /* SwiftRaterLocalization.strings in Resources */ = {isa = PBXBuildFile; fileRef = AC6538B21E8AA6F4009EFDA4 /* SwiftRaterLocalization.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +32,17 @@
 		645FF5F11E8A1D89001D5563 /* SwiftRaterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftRaterTests.swift; sourceTree = "<group>"; };
 		645FF5F31E8A1D89001D5563 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		645FF6321E8A2052001D5563 /* SwiftRater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftRater.swift; sourceTree = "<group>"; };
+		AC6538B11E8AA6F4009EFDA4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SwiftRaterLocalization.strings; sourceTree = "<group>"; };
+		AC6538B31E8AA6FE009EFDA4 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/SwiftRaterLocalization.strings; sourceTree = "<group>"; };
+		AC6538B41E8AA70A009EFDA4 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/SwiftRaterLocalization.strings; sourceTree = "<group>"; };
+		AC6538B51E8AA70F009EFDA4 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/SwiftRaterLocalization.strings; sourceTree = "<group>"; };
+		AC6538B61E8AA71C009EFDA4 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/SwiftRaterLocalization.strings"; sourceTree = "<group>"; };
+		AC6538B71E8AA7E9009EFDA4 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/SwiftRaterLocalization.strings; sourceTree = "<group>"; };
+		AC6538B81E8AA7F3009EFDA4 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/SwiftRaterLocalization.strings"; sourceTree = "<group>"; };
+		AC6538B91E8AA7F8009EFDA4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/SwiftRaterLocalization.strings"; sourceTree = "<group>"; };
+		AC6538BA1E8AA807009EFDA4 /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/SwiftRaterLocalization.strings; sourceTree = "<group>"; };
+		AC6538BB1E8AA80D009EFDA4 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/SwiftRaterLocalization.strings; sourceTree = "<group>"; };
+		AC6538BC1E8AA818009EFDA4 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/SwiftRaterLocalization.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +88,7 @@
 				645FF5E61E8A1D89001D5563 /* SwiftRater.h */,
 				645FF5E71E8A1D89001D5563 /* Info.plist */,
 				645FF6321E8A2052001D5563 /* SwiftRater.swift */,
+				AC6538B21E8AA6F4009EFDA4 /* SwiftRaterLocalization.strings */,
 			);
 			path = SwiftRater;
 			sourceTree = "<group>";
@@ -168,6 +181,16 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				ja,
+				es,
+				fr,
+				"zh-Hans",
+				de,
+				"pt-PT",
+				"pt-BR",
+				sk,
+				el,
+				id,
 			);
 			mainGroup = 645FF5D91E8A1D89001D5563;
 			productRefGroup = 645FF5E41E8A1D89001D5563 /* Products */;
@@ -185,6 +208,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC6538B01E8AA6F4009EFDA4 /* SwiftRaterLocalization.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,11 +248,33 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		AC6538B21E8AA6F4009EFDA4 /* SwiftRaterLocalization.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AC6538B11E8AA6F4009EFDA4 /* en */,
+				AC6538B31E8AA6FE009EFDA4 /* ja */,
+				AC6538B41E8AA70A009EFDA4 /* es */,
+				AC6538B51E8AA70F009EFDA4 /* fr */,
+				AC6538B61E8AA71C009EFDA4 /* zh-Hans */,
+				AC6538B71E8AA7E9009EFDA4 /* de */,
+				AC6538B81E8AA7F3009EFDA4 /* pt-PT */,
+				AC6538B91E8AA7F8009EFDA4 /* pt-BR */,
+				AC6538BA1E8AA807009EFDA4 /* sk */,
+				AC6538BB1E8AA80D009EFDA4 /* el */,
+				AC6538BC1E8AA818009EFDA4 /* id */,
+			);
+			name = SwiftRaterLocalization.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		645FF5F51E8A1D89001D5563 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -282,6 +328,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";

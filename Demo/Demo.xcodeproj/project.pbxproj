@@ -491,6 +491,7 @@
 				645FF6251E8A1DCE001D5563 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		645FF6261E8A1DCE001D5563 /* Build configuration list for PBXNativeTarget "DemoTests" */ = {
 			isa = XCConfigurationList;
@@ -499,6 +500,7 @@
 				645FF6281E8A1DCE001D5563 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
