@@ -12,6 +12,7 @@
 		645FF5F41E8A1D89001D5563 /* SwiftRater.h in Headers */ = {isa = PBXBuildFile; fileRef = 645FF5E61E8A1D89001D5563 /* SwiftRater.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		645FF6331E8A2052001D5563 /* SwiftRater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645FF6321E8A2052001D5563 /* SwiftRater.swift */; };
 		AC6538B01E8AA6F4009EFDA4 /* SwiftRaterLocalization.strings in Resources */ = {isa = PBXBuildFile; fileRef = AC6538B21E8AA6F4009EFDA4 /* SwiftRaterLocalization.strings */; };
+		AC6538BE1E8AB4FF009EFDA4 /* SwiftRaterBundleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6538BD1E8AB4FF009EFDA4 /* SwiftRaterBundleExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,7 @@
 		AC6538BA1E8AA807009EFDA4 /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/SwiftRaterLocalization.strings; sourceTree = "<group>"; };
 		AC6538BB1E8AA80D009EFDA4 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/SwiftRaterLocalization.strings; sourceTree = "<group>"; };
 		AC6538BC1E8AA818009EFDA4 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/SwiftRaterLocalization.strings; sourceTree = "<group>"; };
+		AC6538BD1E8AB4FF009EFDA4 /* SwiftRaterBundleExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftRaterBundleExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 				645FF5E71E8A1D89001D5563 /* Info.plist */,
 				645FF6321E8A2052001D5563 /* SwiftRater.swift */,
 				AC6538B21E8AA6F4009EFDA4 /* SwiftRaterLocalization.strings */,
+				AC6538BD1E8AB4FF009EFDA4 /* SwiftRaterBundleExtension.swift */,
 			);
 			path = SwiftRater;
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC6538BE1E8AB4FF009EFDA4 /* SwiftRaterBundleExtension.swift in Sources */,
 				645FF6331E8A2052001D5563 /* SwiftRater.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
