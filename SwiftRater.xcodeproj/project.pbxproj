@@ -50,6 +50,7 @@
 		645FF6931E8B8DA7001D5563 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/SwiftRaterLocalization.strings; sourceTree = "<group>"; };
 		645FF6941E8B9053001D5563 /* SwiftRaterErrorCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftRaterErrorCode.swift; sourceTree = "<group>"; };
 		645FF6961E8B906E001D5563 /* SwiftRaterError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftRaterError.swift; sourceTree = "<group>"; };
+		645FF69D1E8BABF6001D5563 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/SwiftRaterLocalization.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +202,7 @@
 				"pt-PT",
 				id,
 				el,
+				it,
 			);
 			mainGroup = 645FF65B1E8B8CD0001D5563;
 			productRefGroup = 645FF6661E8B8CD0001D5563 /* Products */;
@@ -276,6 +278,7 @@
 				645FF6911E8B8D8E001D5563 /* pt-PT */,
 				645FF6921E8B8D93001D5563 /* id */,
 				645FF6931E8B8DA7001D5563 /* el */,
+				645FF69D1E8BABF6001D5563 /* it */,
 			);
 			name = SwiftRaterLocalization.strings;
 			sourceTree = "<group>";
