@@ -14,7 +14,7 @@ public class SwiftRater {
     fileprivate var appID: Int?
     
     public init() {
-        
+        performVersionCheck()
     }
 }
 
@@ -42,10 +42,10 @@ private extension SwiftRater {
         do {
             let url = try iTunesURLFromString()
             let request = URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: 30)
-            URLSession.shared.dataTask(with: request, completionHandler: { [unowned self] (data, response, error) in
+            URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
                 self.processResults(withData: data, response: response, error: error)
             }).resume()
-        } catch let error as NSError {
+        } catch let error {
             postError(.malformedURL, underlyingError: error)
         }
     }
@@ -61,8 +61,7 @@ private extension SwiftRater {
             
             do {
                 let jsonData = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments)
-                guard let appData = jsonData as? [String: Any], self.isUpdateCompatibleWithDeviceOS(appData: appData) else {
-                        
+                guard let appData = jsonData as? [String: Any] else {
                         self.postError(.appStoreJSONParsingFailure, underlyingError: nil)
                         return
                 }
@@ -75,7 +74,7 @@ private extension SwiftRater {
                     self.processVersionCheck(withResults: appData)
                 }
                 
-            } catch let error as NSError {
+            } catch let error {
                 self.postError(.appStoreDataRetrievalFailure, underlyingError: error)
             }
         }
@@ -88,7 +87,7 @@ private extension SwiftRater {
             return
         }
         
-        /// Condition satisfied when app not in App Store
+        /// App not in App Store
         guard !allResults.isEmpty else {
             postError(.appStoreDataRetrievalFailure, underlyingError: nil)
             return
@@ -155,27 +154,7 @@ private extension SwiftRater {
         let error = NSError(domain: SwiftRaterErrorDomain, code: code.rawValue, userInfo: userInfo)
         printMessage(message: error.localizedDescription)
     }
-}
 
-private extension SwiftRater {
-    func isUpdateCompatibleWithDeviceOS(appData: [String: Any]) -> Bool {
-        guard let results = appData["results"] as? [[String: Any]],
-            let requiredOSVersion = results.first?["minimumOsVersion"] as? String else {
-                postError(.appStoreOSVersionNumberFailure, underlyingError: nil)
-                return false
-        }
-        
-        let systemVersion = UIDevice.current.systemVersion
-        
-        if systemVersion.compare(requiredOSVersion, options: .numeric) == .orderedDescending ||
-            systemVersion.compare(requiredOSVersion, options: .numeric) == .orderedSame {
-            return true
-        } else {
-            postError(.appStoreOSVersionUnsupported, underlyingError: nil)
-            return false
-        }
-    }
-    
     func printMessage(message: String) {
 //        if debugEnabled {
             print("[Siren] \(message)")
