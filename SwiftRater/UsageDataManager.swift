@@ -23,7 +23,7 @@ class UsageDataManager {
     static private let keySwiftRaterFirstUseDate = "keySwiftRaterFirstUseDate"
     static private let keySwiftRaterUseCount = "keySwiftRaterUseCount"
     static private let keySwiftRaterSignificantEventCount = "keySwiftRaterSignificantEventCount"
-    static private let keySwiftRaterDeclinedToRate = "keySwiftRaterDeclinedToRate"
+    static private let keySwiftRaterRateDone = "keySwiftRaterRateDone"
     static private let keySwiftRaterReminderRequestDate = "keySwiftRaterReminderRequestDate"
 
     static var shared = UsageDataManager()
@@ -35,14 +35,24 @@ class UsageDataManager {
             UsageDataManager.keySwiftRaterFirstUseDate: 0,
             UsageDataManager.keySwiftRaterUseCount: 0,
             UsageDataManager.keySwiftRaterSignificantEventCount: 0,
-            UsageDataManager.keySwiftRaterDeclinedToRate: false,
+            UsageDataManager.keySwiftRaterRateDone: false,
             UsageDataManager.keySwiftRaterReminderRequestDate: 0
             ] as [String : Any]
         let ud = UserDefaults.standard
         ud.register(defaults: defaults)
     }
 
-    var firstUseDate: TimeInterval {
+    var isRateDone: Bool {
+        get {
+            return userDefaults.bool(forKey: UsageDataManager.keySwiftRaterRateDone)
+        }
+        set {
+            userDefaults.set(newValue, forKey: UsageDataManager.keySwiftRaterRateDone)
+            userDefaults.synchronize()
+        }
+    }
+
+    private var firstUseDate: TimeInterval {
         get {
             let value = userDefaults.double(forKey: UsageDataManager.keySwiftRaterFirstUseDate)
 
@@ -57,21 +67,32 @@ class UsageDataManager {
         }
     }
 
-    var declinedToRate: TimeInterval {
+    private var reminderRequestToRate: TimeInterval {
         get {
-            let value = userDefaults.double(forKey: UsageDataManager.keySwiftRaterReminderRequestDate)
-
-            if value == 0 {
-                // store first launch date time
-                let firstLaunchTimeInterval = Date().timeIntervalSince1970
-                userDefaults.set(firstLaunchTimeInterval, forKey: UsageDataManager.keySwiftRaterReminderRequestDate)
-                return firstLaunchTimeInterval
-            } else {
-                return value
-            }
+            return userDefaults.double(forKey: UsageDataManager.keySwiftRaterReminderRequestDate)
         }
         set {
             userDefaults.set(newValue, forKey: UsageDataManager.keySwiftRaterReminderRequestDate)
+            userDefaults.synchronize()
+        }
+    }
+
+    private var useCount: Int {
+        get {
+            return userDefaults.integer(forKey: UsageDataManager.keySwiftRaterUseCount)
+        }
+        set {
+            userDefaults.set(newValue, forKey: UsageDataManager.keySwiftRaterUseCount)
+            userDefaults.synchronize()
+        }
+    }
+
+    private var significantEventCount: Int {
+        get {
+            return userDefaults.integer(forKey: UsageDataManager.keySwiftRaterSignificantEventCount)
+        }
+        set {
+            userDefaults.set(newValue, forKey: UsageDataManager.keySwiftRaterSignificantEventCount)
             userDefaults.synchronize()
         }
     }
@@ -86,16 +107,20 @@ class UsageDataManager {
         userDefaults.set(0, forKey: UsageDataManager.keySwiftRaterFirstUseDate)
         userDefaults.set(0, forKey: UsageDataManager.keySwiftRaterUseCount)
         userDefaults.set(0, forKey: UsageDataManager.keySwiftRaterSignificantEventCount)
-        userDefaults.set(false, forKey: UsageDataManager.keySwiftRaterDeclinedToRate)
+        userDefaults.set(false, forKey: UsageDataManager.keySwiftRaterRateDone)
         userDefaults.set(0, forKey: UsageDataManager.keySwiftRaterReminderRequestDate)
         userDefaults.synchronize()
     }
 
     func incrementUseCount() {
-
+        useCount = useCount + 1
     }
 
     func incrementSignificantUseCount() {
+        significantEventCount = significantEventCount + 1
+    }
 
+    func saveReminderDate() {
+        reminderRequestToRate = Date().timeIntervalSince1970
     }
 }

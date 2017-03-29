@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         SwiftRater.daysUntilPrompt = 1
         SwiftRater.debugMode = true
-        SwiftRater.didFinishLaunching()
+        SwiftRater.appLaunched()
 
         return true
     }

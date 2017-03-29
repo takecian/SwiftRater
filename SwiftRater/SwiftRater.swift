@@ -8,7 +8,13 @@
 
 import UIKit
 
-public class SwiftRater {
+public class SwiftRater: NSObject {
+
+    enum ButtonIndex: Int {
+        case cancel = 0
+        case rate = 1
+        case later = 2
+    }
 
     public let SwiftRaterErrorDomain = "Siren Error Domain"
 
@@ -62,6 +68,8 @@ public class SwiftRater {
     public static var alertRateTitle: String?
     public static var alertRateLaterTitle: String?
 
+    public static var showLog: Bool = false
+
     public static var shared = SwiftRater()
 
     private var appID: Int?
@@ -101,10 +109,11 @@ public class SwiftRater {
         }
     }
 
-    private init() {
+    private override init() {
+        super.init()
     }
 
-    public static func didFinishLaunching() {
+    public static func appLaunched() {
         SwiftRater.shared.perform()
     }
 
@@ -113,6 +122,8 @@ public class SwiftRater {
     }
 
     public static func verify() {
+        guard !UsageDataManager.shared.isRateDone else { return }
+
         if UsageDataManager.shared.ratingConditionsHaveBeenMet {
             SwiftRater.shared.showRatingAlert()
         }
@@ -245,7 +256,7 @@ public class SwiftRater {
     }
 
     private func printMessage(message: String) {
-        if SwiftRater.debugMode {
+        if SwiftRater.showLog {
             print("[SwiftRater] \(message)")
         }
     }
@@ -261,11 +272,38 @@ public class SwiftRater {
     private func showRatingAlert() {
         let alertView = { () -> UIAlertView in 
             if SwiftRater.showLaterButton {
-                return UIAlertView(title: titleText, message: messageText, delegate: nil, cancelButtonTitle: cancelText, otherButtonTitles: rateText, laterText)
+                return UIAlertView(title: titleText, message: messageText, delegate: self, cancelButtonTitle: cancelText, otherButtonTitles: rateText, laterText)
             } else {
-                return UIAlertView(title: titleText, message: messageText, delegate: nil, cancelButtonTitle: cancelText, otherButtonTitles: rateText)
+                return UIAlertView(title: titleText, message: messageText, delegate: self, cancelButtonTitle: cancelText, otherButtonTitles: rateText)
             }
         }()
         alertView.show()
+    }
+}
+
+extension SwiftRater: UIAlertViewDelegate {
+    public func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
+        if SwiftRater.showLaterButton {
+            switch buttonIndex {
+            case ButtonIndex.rate.rawValue:
+                gotoReview()
+                UsageDataManager.shared.isRateDone = true
+            case ButtonIndex.later.rawValue:
+                UsageDataManager.shared.saveReminderDate()
+            default:
+                UsageDataManager.shared.isRateDone = true
+            }
+        } else {
+            switch buttonIndex {
+            case ButtonIndex.rate.rawValue:
+                break
+            default:
+                UsageDataManager.shared.isRateDone = true
+            }
+        }
+    }
+
+    private func gotoReview() {
+
     }
 }
