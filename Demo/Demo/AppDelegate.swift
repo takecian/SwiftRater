@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 
         SwiftRater.daysUntilPrompt = 1
+        SwiftRater.showLaterButton = false
         SwiftRater.debugMode = true
         SwiftRater.appLaunched()
 

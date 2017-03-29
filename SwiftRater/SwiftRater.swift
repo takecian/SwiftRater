@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import StoreKit
 
 public class SwiftRater: NSObject {
 
@@ -72,8 +73,8 @@ public class SwiftRater: NSObject {
 
     public static var shared = SwiftRater()
 
-    private var appID: Int?
-    private var appVersion: String?
+    fileprivate var appID: Int?
+    fileprivate var appVersion: String?
 
     private var titleText: String {
         return SwiftRater.alertTitle ?? String.init(format: localize("Rate %@"), mainAppName)
@@ -122,8 +123,6 @@ public class SwiftRater: NSObject {
     }
 
     public static func verify() {
-        guard !UsageDataManager.shared.isRateDone else { return }
-
         if UsageDataManager.shared.ratingConditionsHaveBeenMet {
             SwiftRater.shared.showRatingAlert()
         }
@@ -134,7 +133,7 @@ public class SwiftRater: NSObject {
     }
 
     private func perform() {
-        // get appID from itunes
+        // get appID and version from itunes
         do {
             let url = try iTunesURLFromString()
             let request = URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: 30)
@@ -286,7 +285,7 @@ extension SwiftRater: UIAlertViewDelegate {
         if SwiftRater.showLaterButton {
             switch buttonIndex {
             case ButtonIndex.rate.rawValue:
-                gotoReview()
+                rateApp()
                 UsageDataManager.shared.isRateDone = true
             case ButtonIndex.later.rawValue:
                 UsageDataManager.shared.saveReminderDate()
@@ -303,7 +302,18 @@ extension SwiftRater: UIAlertViewDelegate {
         }
     }
 
-    private func gotoReview() {
-
+    private func rateApp() {
+        #if TARGET_IPHONE_SIMULATOR
+            print("APPIRATER NOTE: iTunes App Store is not supported on the iOS simulator. Unable to open App Store page.");
+        #else
+            if #available(iOS 10.3, *) {
+                // SKStoreReviewController.requestReview()
+            } else {
+                guard let appId = self.appID else { return }
+                let reviewURL = "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=\(appId)&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software";
+                guard let url = URL(string: reviewURL) else { return }
+                UIApplication.shared.openURL(url)
+            }
+        #endif
     }
 }

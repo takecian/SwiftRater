@@ -77,7 +77,7 @@ class UsageDataManager {
         }
     }
 
-    private var useCount: Int {
+    private var usesCount: Int {
         get {
             return userDefaults.integer(forKey: UsageDataManager.keySwiftRaterUseCount)
         }
@@ -98,9 +98,36 @@ class UsageDataManager {
     }
 
     var ratingConditionsHaveBeenMet: Bool {
-        guard !debugMode else { return true }
+        guard !debugMode else { return true } // if debug mode, return always true
+        guard !isRateDone else { return false } // if already rated, return false
 
-        return false
+        // check if the app has been used enough days
+        if daysUntilPrompt != SwiftRaterInvalid {
+            let dateOfFirstLaunch = Date(timeIntervalSince1970: firstUseDate)
+            let timeSinceFirstLaunch = Date().timeIntervalSince(dateOfFirstLaunch)
+            let timeUntilRate = 60 * 60 * 24 * daysUntilPrompt;
+            guard Int(timeSinceFirstLaunch) < timeUntilRate else { return true }
+        }
+
+        // check if the app has been used enough times
+        if usesUntilPrompt != SwiftRaterInvalid {
+            guard usesCount < usesUntilPrompt else { return true }
+        }
+
+        // check if the user has done enough significant events
+        if significantUsesUntilPrompt != SwiftRaterInvalid {
+            guard significantEventCount < significantUsesUntilPrompt else { return true }
+        }
+
+        // if the user wanted to be reminded later, has enough time passed?
+        if daysBeforeReminding != SwiftRaterInvalid {
+            let dateOfReminderRequest = Date(timeIntervalSince1970: reminderRequestToRate)
+            let timeSinceReminderRequest = Date().timeIntervalSince(dateOfReminderRequest)
+            let timeUntilRate = 60 * 60 * 24 * daysBeforeReminding;
+            guard Int(timeSinceReminderRequest) < timeUntilRate else { return true }
+        }
+
+        return true
     }
 
     func reset() {
@@ -113,7 +140,7 @@ class UsageDataManager {
     }
 
     func incrementUseCount() {
-        useCount = useCount + 1
+        usesCount = usesCount + 1
     }
 
     func incrementSignificantUseCount() {
