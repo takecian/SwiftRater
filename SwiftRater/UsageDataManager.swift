@@ -24,6 +24,7 @@ class UsageDataManager {
     static private let keySwiftRaterUseCount = "keySwiftRaterUseCount"
     static private let keySwiftRaterSignificantEventCount = "keySwiftRaterSignificantEventCount"
     static private let keySwiftRaterRateDone = "keySwiftRaterRateDone"
+    static private let keySwiftRaterTrackingVersion = "keySwiftRaterTrackingVersion"
     static private let keySwiftRaterReminderRequestDate = "keySwiftRaterReminderRequestDate"
 
     static var shared = UsageDataManager()
@@ -36,6 +37,7 @@ class UsageDataManager {
             UsageDataManager.keySwiftRaterUseCount: 0,
             UsageDataManager.keySwiftRaterSignificantEventCount: 0,
             UsageDataManager.keySwiftRaterRateDone: false,
+            UsageDataManager.keySwiftRaterTrackingVersion: "",
             UsageDataManager.keySwiftRaterReminderRequestDate: 0
             ] as [String : Any]
         let ud = UserDefaults.standard
@@ -48,6 +50,16 @@ class UsageDataManager {
         }
         set {
             userDefaults.set(newValue, forKey: UsageDataManager.keySwiftRaterRateDone)
+            userDefaults.synchronize()
+        }
+    }
+
+    var trackingVersion: String {
+        get {
+            return userDefaults.string(forKey: UsageDataManager.keySwiftRaterTrackingVersion) ?? ""
+        }
+        set {
+            userDefaults.set(newValue, forKey: UsageDataManager.keySwiftRaterTrackingVersion)
             userDefaults.synchronize()
         }
     }
@@ -98,8 +110,13 @@ class UsageDataManager {
     }
 
     var ratingConditionsHaveBeenMet: Bool {
-        guard !debugMode else { return true } // if debug mode, return always true
-        guard !isRateDone else { return false } // if already rated, return false
+        guard !debugMode else {
+            printMessage(message: " In debug mode")
+            return true
+        } // if debug mode, return always true
+        guard !isRateDone else {
+            printMessage(message: " Already rated")
+            return false } // if already rated, return false
 
         // check if the app has been used enough days
         if daysUntilPrompt != SwiftRaterInvalid {
@@ -127,7 +144,7 @@ class UsageDataManager {
             guard Int(timeSinceReminderRequest) < timeUntilRate else { return true }
         }
 
-        return true
+        return false
     }
 
     func reset() {
@@ -147,7 +164,13 @@ class UsageDataManager {
         significantEventCount = significantEventCount + 1
     }
 
-    func saveReminderDate() {
+    func saveReminderRequestDate() {
         reminderRequestToRate = Date().timeIntervalSince1970
+    }
+    
+    private func printMessage(message: String) {
+        if SwiftRater.showLog {
+            print("[SwiftRater] \(message)")
+        }
     }
 }

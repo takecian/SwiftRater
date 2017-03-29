@@ -18,7 +18,7 @@ class ViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        SwiftRater.verify()
+        SwiftRater.check()
     }
 
 }

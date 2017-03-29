@@ -70,11 +70,17 @@ public class SwiftRater: NSObject {
     public static var alertRateLaterTitle: String?
 
     public static var showLog: Bool = false
+    public static var resetWhenAppUpdated: Bool = true
 
     public static var shared = SwiftRater()
 
     fileprivate var appID: Int?
-    fileprivate var appVersion: String?
+
+    private static var appVersion: String {
+        get {
+            return Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String ?? "0.0.0"
+        }
+    }
 
     private var titleText: String {
         return SwiftRater.alertTitle ?? String.init(format: localize("Rate %@"), mainAppName)
@@ -115,6 +121,11 @@ public class SwiftRater: NSObject {
     }
 
     public static func appLaunched() {
+        if SwiftRater.resetWhenAppUpdated && SwiftRater.appVersion != UsageDataManager.shared.trackingVersion {
+            UsageDataManager.shared.reset()
+            UsageDataManager.shared.trackingVersion = SwiftRater.appVersion
+        }
+
         SwiftRater.shared.perform()
     }
 
@@ -122,7 +133,7 @@ public class SwiftRater: NSObject {
         UsageDataManager.shared.incrementSignificantUseCount()
     }
 
-    public static func verify() {
+    public static func check() {
         if UsageDataManager.shared.ratingConditionsHaveBeenMet {
             SwiftRater.shared.showRatingAlert()
         }
@@ -163,7 +174,7 @@ public class SwiftRater: NSObject {
 
                 DispatchQueue.main.async {
                     // Print iTunesLookup results from appData
-                    self.printMessage(message: "JSON results: \(appData)")
+//                    self.printMessage(message: "JSON results: \(appData)")
 
                     // Process Results (e.g., extract current version that is available on the AppStore)
                     self.processVersionCheck(withResults: appData)
@@ -177,7 +188,7 @@ public class SwiftRater: NSObject {
 
     private func processVersionCheck(withResults results: [String: Any]) {
         guard let allResults = results["results"] as? [[String: Any]] else {
-            self.postError(.appStoreVersionNumberFailure, underlyingError: nil)
+            self.postError(.appStoreDataRetrievalFailure, underlyingError: nil)
             return
         }
 
@@ -191,13 +202,9 @@ public class SwiftRater: NSObject {
             postError(.appStoreAppIDFailure, underlyingError: nil)
             return
         }
-        guard let appVersion = allResults.first?["version"] as? String else {
-            postError(.appStoreAppIDFailure, underlyingError: nil)
-            return
-        }
 
         self.appID = appID
-        self.appVersion = appVersion
+        
         incrementUsageCount()
     }
 
@@ -224,22 +231,10 @@ public class SwiftRater: NSObject {
         switch code {
         case .malformedURL:
             description = "The iTunes URL is malformed. Please leave an issue on http://github.com/ArtSabintsev/Siren with as many details as possible."
-        case .recentlyCheckedAlready:
-            description = "Not checking the version, because it already checked recently."
-        case .noUpdateAvailable:
-            description = "No new update available."
         case .appStoreDataRetrievalFailure:
             description = "Error retrieving App Store data as an error was returned."
         case .appStoreJSONParsingFailure:
             description = "Error parsing App Store JSON data."
-        case .appStoreOSVersionNumberFailure:
-            description = "Error retrieving iOS version number as there was no data returned."
-        case .appStoreOSVersionUnsupported:
-            description = "The version of iOS on the device is lower than that of the one required by the app verison update."
-        case .appStoreVersionNumberFailure:
-            description = "Error retrieving App Store version number as there was no data returned."
-        case .appStoreVersionArrayFailure:
-            description = "Error retrieving App Store verson number as results.first does not contain a 'version' key."
         case .appStoreAppIDFailure:
             description = "Error retrieving trackId as results.first does not contain a 'trackId' key."
         }
@@ -269,14 +264,19 @@ public class SwiftRater: NSObject {
     }
 
     private func showRatingAlert() {
-        let alertView = { () -> UIAlertView in 
-            if SwiftRater.showLaterButton {
-                return UIAlertView(title: titleText, message: messageText, delegate: self, cancelButtonTitle: cancelText, otherButtonTitles: rateText, laterText)
-            } else {
-                return UIAlertView(title: titleText, message: messageText, delegate: self, cancelButtonTitle: cancelText, otherButtonTitles: rateText)
-            }
-        }()
-        alertView.show()
+        if #available(iOS 10.3, *) {
+            SKStoreReviewController.requestReview()
+            UsageDataManager.shared.isRateDone = true
+        } else {
+            let alertView = { () -> UIAlertView in
+                if SwiftRater.showLaterButton {
+                    return UIAlertView(title: titleText, message: messageText, delegate: self, cancelButtonTitle: cancelText, otherButtonTitles: rateText, laterText)
+                } else {
+                    return UIAlertView(title: titleText, message: messageText, delegate: self, cancelButtonTitle: cancelText, otherButtonTitles: rateText)
+                }
+            }()
+            alertView.show()
+        }
     }
 }
 
@@ -288,14 +288,15 @@ extension SwiftRater: UIAlertViewDelegate {
                 rateApp()
                 UsageDataManager.shared.isRateDone = true
             case ButtonIndex.later.rawValue:
-                UsageDataManager.shared.saveReminderDate()
+                UsageDataManager.shared.saveReminderRequestDate()
             default:
                 UsageDataManager.shared.isRateDone = true
             }
         } else {
             switch buttonIndex {
             case ButtonIndex.rate.rawValue:
-                break
+                rateApp()
+                UsageDataManager.shared.isRateDone = true
             default:
                 UsageDataManager.shared.isRateDone = true
             }
@@ -303,17 +304,13 @@ extension SwiftRater: UIAlertViewDelegate {
     }
 
     private func rateApp() {
-        #if TARGET_IPHONE_SIMULATOR
+        #if arch(i386) || arch(x86_64)
             print("APPIRATER NOTE: iTunes App Store is not supported on the iOS simulator. Unable to open App Store page.");
         #else
-            if #available(iOS 10.3, *) {
-                // SKStoreReviewController.requestReview()
-            } else {
-                guard let appId = self.appID else { return }
-                let reviewURL = "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=\(appId)&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software";
-                guard let url = URL(string: reviewURL) else { return }
-                UIApplication.shared.openURL(url)
-            }
+            guard let appId = self.appID else { return }
+            let reviewURL = "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=\(appId)&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software";
+            guard let url = URL(string: reviewURL) else { return }
+            UIApplication.shared.openURL(url)
         #endif
     }
 }

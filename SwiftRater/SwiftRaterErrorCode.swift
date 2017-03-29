@@ -10,13 +10,7 @@ import UIKit
 
 enum SwiftRaterErrorCode: Int {
     case malformedURL = 1000
-    case recentlyCheckedAlready
-    case noUpdateAvailable
     case appStoreDataRetrievalFailure
     case appStoreJSONParsingFailure
-    case appStoreOSVersionNumberFailure
-    case appStoreOSVersionUnsupported
-    case appStoreVersionNumberFailure
-    case appStoreVersionArrayFailure
     case appStoreAppIDFailure
 }
