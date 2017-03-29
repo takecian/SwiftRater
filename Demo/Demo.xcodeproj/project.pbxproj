@@ -43,7 +43,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 645FF6291E8A202F001D5563 /* SwiftRater.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 645FF5E21E8A1D89001D5563;
+			remoteGlobalIDString = 645FF6641E8B8CD0001D5563;
 			remoteInfo = SwiftRater;
 		};
 /* End PBXContainerItemProxy section */
@@ -422,7 +422,7 @@
 				DEVELOPMENT_TEAM = XEV6645KTD;
 				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.takecian.Demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cocomoe.carp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -436,7 +436,7 @@
 				DEVELOPMENT_TEAM = XEV6645KTD;
 				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.takecian.Demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cocomoe.carp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

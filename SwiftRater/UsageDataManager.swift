@@ -8,10 +8,15 @@
 
 import UIKit
 
+let SwiftRaterInvalid = -1
+
 class UsageDataManager {
 
-    var daysUntilPrompt: Int = 30
-    var daysBeforeReminding: Int = 1
+    var daysUntilPrompt: Int = SwiftRaterInvalid
+    var usesUntilPrompt: Int = SwiftRaterInvalid
+    var significantUsesUntilPrompt: Int = SwiftRaterInvalid
+    var daysBeforeReminding: Int = SwiftRaterInvalid
+
     var showLaterButton: Bool = true
     var debugMode: Bool = false
 
@@ -30,8 +35,10 @@ class UsageDataManager {
     private init() {
         let defaults = [
             UsageDataManager.keySwiftRaterFirstUseDate: 0,
-            UsageDataManager.keySwiftRaterUseCount: 20,
-            UsageDataManager.keySwiftRaterSignificantEventCount: 0
+            UsageDataManager.keySwiftRaterUseCount: 0,
+            UsageDataManager.keySwiftRaterSignificantEventCount: 0,
+            UsageDataManager.keySwiftRaterDeclinedToRate: false,
+            UsageDataManager.keySwiftRaterReminderRequestDate: 0
             ] as [String : Any]
         let ud = UserDefaults.standard
         ud.register(defaults: defaults)
@@ -42,6 +49,7 @@ class UsageDataManager {
             let value = userDefaults.double(forKey: UsageDataManager.keySwiftRaterFirstUseDate)
 
             if value == 0 {
+                // store first launch date time
                 let firstLaunchTimeInterval = Date().timeIntervalSince1970
                 userDefaults.set(firstLaunchTimeInterval, forKey: UsageDataManager.keySwiftRaterFirstUseDate)
                 return firstLaunchTimeInterval
@@ -52,10 +60,25 @@ class UsageDataManager {
     }
 
     var ratingConditionsHaveBeenMet: Bool {
+        guard !debugMode else { return true }
+
         return false
     }
 
+    func reset() {
+        userDefaults.set(0, forKey: UsageDataManager.keySwiftRaterFirstUseDate)
+        userDefaults.set(0, forKey: UsageDataManager.keySwiftRaterUseCount)
+        userDefaults.set(0, forKey: UsageDataManager.keySwiftRaterSignificantEventCount)
+        userDefaults.set(false, forKey: UsageDataManager.keySwiftRaterDeclinedToRate)
+        userDefaults.set(0, forKey: UsageDataManager.keySwiftRaterReminderRequestDate)
+        userDefaults.synchronize()
+    }
+
     func incrementUseCount() {
+
+    }
+
+    func incrementSignificantUseCount() {
 
     }
 }
