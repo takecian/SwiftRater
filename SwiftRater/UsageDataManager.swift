@@ -23,8 +23,6 @@ class UsageDataManager {
     static private let keySwiftRaterFirstUseDate = "keySwiftRaterFirstUseDate"
     static private let keySwiftRaterUseCount = "keySwiftRaterUseCount"
     static private let keySwiftRaterSignificantEventCount = "keySwiftRaterSignificantEventCount"
-    static private let keySwiftRaterCurrentVersion = "keySwiftRaterCurrentVersion"
-    static private let keySwiftRaterRatedCurrentVersion = "keySwiftRaterRatedCurrentVersion"
     static private let keySwiftRaterDeclinedToRate = "keySwiftRaterDeclinedToRate"
     static private let keySwiftRaterReminderRequestDate = "keySwiftRaterReminderRequestDate"
 
@@ -56,6 +54,25 @@ class UsageDataManager {
             } else {
                 return value
             }
+        }
+    }
+
+    var declinedToRate: TimeInterval {
+        get {
+            let value = userDefaults.double(forKey: UsageDataManager.keySwiftRaterReminderRequestDate)
+
+            if value == 0 {
+                // store first launch date time
+                let firstLaunchTimeInterval = Date().timeIntervalSince1970
+                userDefaults.set(firstLaunchTimeInterval, forKey: UsageDataManager.keySwiftRaterReminderRequestDate)
+                return firstLaunchTimeInterval
+            } else {
+                return value
+            }
+        }
+        set {
+            userDefaults.set(newValue, forKey: UsageDataManager.keySwiftRaterReminderRequestDate)
+            userDefaults.synchronize()
         }
     }
 

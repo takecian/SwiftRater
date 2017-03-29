@@ -197,8 +197,8 @@
 				TargetAttributes = {
 					645FF6051E8A1DCE001D5563 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = XEV6645KTD;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = 4MN522WN87;
+						ProvisioningStyle = Manual;
 					};
 					645FF6191E8A1DCE001D5563 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -419,11 +419,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = XEV6645KTD;
+				DEVELOPMENT_TEAM = 4MN522WN87;
 				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cocomoe.carp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "b61efe67-3214-4404-825c-1106a1e3df5f";
+				PROVISIONING_PROFILE_SPECIFIER = "Debug for Device";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -433,7 +435,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = XEV6645KTD;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cocomoe.carp;

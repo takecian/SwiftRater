@@ -55,12 +55,51 @@ public class SwiftRater {
     }
 
     public static var showLaterButton: Bool = true
-    public static var resetWhenAppUpdated: Bool = false
+
+    public static var alertTitle: String?
+    public static var alertMessage: String?
+    public static var alertCancelTitle: String?
+    public static var alertRateTitle: String?
+    public static var alertRateLaterTitle: String?
 
     public static var shared = SwiftRater()
 
     private var appID: Int?
     private var appVersion: String?
+
+    private var titleText: String {
+        return SwiftRater.alertTitle ?? String.init(format: localize("Rate %@"), mainAppName)
+    }
+
+    private var messageText: String {
+        return SwiftRater.alertMessage ?? String.init(format: localize("Rater.title"), mainAppName)
+    }
+
+    private var rateText: String {
+        return SwiftRater.alertRateTitle ?? String.init(format: localize("Rate %@"), mainAppName)
+    }
+
+    private var cancelText: String {
+        return SwiftRater.alertCancelTitle ?? String.init(format: localize("No, Thanks"), mainAppName)
+    }
+
+    private var laterText: String {
+        return SwiftRater.alertRateLaterTitle ?? String.init(format: localize("Remind me later"), mainAppName)
+    }
+
+    private func localize(_ key: String) -> String {
+        return NSLocalizedString(key, tableName: "SwiftRaterLocalization", bundle: Bundle(for: SwiftRater.self), comment: "")
+    }
+
+    private var mainAppName: String {
+        if let name = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String {
+            return name
+        } else if let name = Bundle.main.infoDictionary?["CFBundleName"] as? String {
+            return name
+        } else {
+            return "App"
+        }
+    }
 
     private init() {
     }
@@ -71,6 +110,9 @@ public class SwiftRater {
 
     public static func incrementSignificantUsageCount() {
         UsageDataManager.shared.incrementSignificantUseCount()
+    }
+
+    public static func verify() {
         if UsageDataManager.shared.ratingConditionsHaveBeenMet {
             SwiftRater.shared.showRatingAlert()
         }
@@ -146,7 +188,7 @@ public class SwiftRater {
 
         self.appID = appID
         self.appVersion = appVersion
-        incrementUsageCountAndVerify()
+        incrementUsageCount()
     }
 
     private func iTunesURLFromString() throws -> URL {
@@ -208,58 +250,22 @@ public class SwiftRater {
         }
     }
 
-    private func incrementUsageCountAndVerify() {
+    private func incrementUsageCount() {
         UsageDataManager.shared.incrementUseCount()
-        if UsageDataManager.shared.ratingConditionsHaveBeenMet {
-            showRatingAlert()
-        }
     }
 
-    private func incrementSignificantUseCountAndVerify() {
+    private func incrementSignificantUseCount() {
         UsageDataManager.shared.incrementSignificantUseCount()
-        if UsageDataManager.shared.ratingConditionsHaveBeenMet {
-            showRatingAlert()
-        }
     }
 
     private func showRatingAlert() {
-
+        let alertView = { () -> UIAlertView in 
+            if SwiftRater.showLaterButton {
+                return UIAlertView(title: titleText, message: messageText, delegate: nil, cancelButtonTitle: cancelText, otherButtonTitles: rateText, laterText)
+            } else {
+                return UIAlertView(title: titleText, message: messageText, delegate: nil, cancelButtonTitle: cancelText, otherButtonTitles: rateText)
+            }
+        }()
+        alertView.show()
     }
-
-    //    - (void)showRatingAlert:(BOOL)displayRateLaterButton {
-    //    UIAlertView *alertView = nil;
-    //    id <AppiraterDelegate> delegate = _delegate;
-    //
-    //    if(delegate && [delegate respondsToSelector:@selector(appiraterShouldDisplayAlert:)] && ![delegate appiraterShouldDisplayAlert:self]) {
-    //    return;
-    //    }
-    //
-    //    if (displayRateLaterButton) {
-    //    alertView = [[UIAlertView alloc] initWithTitle:self.alertTitle
-    //    message:self.alertMessage
-    //    delegate:self
-    //    cancelButtonTitle:self.alertCancelTitle
-    //    otherButtonTitles:self.alertRateTitle, self.alertRateLaterTitle, nil];
-    //    } else {
-    //    alertView = [[UIAlertView alloc] initWithTitle:self.alertTitle
-    //    message:self.alertMessage
-    //    delegate:self
-    //    cancelButtonTitle:self.alertCancelTitle
-    //    otherButtonTitles:self.alertRateTitle, nil];
-    //    }
-    //
-    //    self.ratingAlert = alertView;
-    //    [alertView show];
-    //
-    //    if (delegate && [delegate respondsToSelector:@selector(appiraterDidDisplayAlert:)]) {
-    //    [delegate appiraterDidDisplayAlert:self];
-    //    }
-    //    }
-
-    //    [Appirater setDaysUntilPrompt:7];
-    //    [Appirater setUsesUntilPrompt:5];
-    //    [Appirater setSignificantEventsUntilPrompt:-1];
-    //    [Appirater setTimeBeforeReminding:2];
-    //    [Appirater setDebug:NO];
-    //    [Appirater appLaunched:YES];
 }
