@@ -30,7 +30,7 @@ SwiftRater is a class that you can drop into any iPhone app that will help remin
 
   s.ios.deployment_target = '8.0'
 
-  s.source_files = 'SwiftRater/SwiftRater/**/*'
+  s.source_files = 'SwiftRater/**/*'
 
   # s.resource_bundles = {
   #   'SwiftRater' => ['SwiftRater/Assets/*.png']
