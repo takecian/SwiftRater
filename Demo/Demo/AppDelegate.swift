@@ -22,8 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SwiftRater.usesUntilPrompt = 1
         SwiftRater.daysBeforeReminding = 1
         SwiftRater.showLaterButton = true
-        SwiftRater.showLog = true
-//        SwiftRater.debugMode = true
+//        SwiftRater.showLog = true
+        SwiftRater.debugMode = true
         SwiftRater.appLaunched()
 
         return true

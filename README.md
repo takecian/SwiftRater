@@ -9,6 +9,12 @@ SwiftRater is a class that you can drop into any iPhone app that will help remin
 
 This app is written in pure Swift.
 
+## iOS 10.3 〜
+![SwiftRater1](./Resource/later1.gif)
+
+## 〜 iOS 10.2
+![SwiftRater2](./Resource/later2.gif)
+
 ## Requirements
 
 iOS 8.0 or later, written in Swift3.
