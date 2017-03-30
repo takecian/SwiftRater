@@ -11,6 +11,8 @@ SwiftRater is written in pure Swift.
 ## iOS 10.3 〜
 ![SwiftRater1](./Resource/later1.gif)
 
+For iOS 10.3 devices, SwiftRater uses SKStoreReviewController.
+
 ## 〜 iOS 10.2
 ![SwiftRater2](./Resource/later2.gif)
 
