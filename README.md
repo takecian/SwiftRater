@@ -39,7 +39,7 @@ github "takecian/SwiftRater"
 
 ## Usage
 
-1.Setup SwiftRater in AppDelegate.swift.
+1.Setup SwiftRater in AppDelegate.swift. After setting up, call `SwiftRater.appLaunched()`.
 
 ```
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
