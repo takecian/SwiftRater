@@ -57,7 +57,7 @@ Setup SwiftRater in AppDelegate.swift.
 ```
 
 | Property      | Description           |
-| ------------- |:-------------:|
+| :------------- |:-------------|
 | debugMode      | Shows review request every time. Default false, **need to set false when you submit app to AppStore**. |
 | daysUntilPrompt      | Shows review request if `daysUntilPrompt` days passed since first app launch. |
 | usesUntilPrompt      | Shows review request if users launch more than `usesUntilPrompt` times.      |
