@@ -1,6 +1,5 @@
 # SwiftRater
 
-[![CI Status](http://img.shields.io/travis/takecian/SwiftRater.svg?style=flat)](https://travis-ci.org/takecian/SwiftRater)
 [![Version](https://img.shields.io/cocoapods/v/SwiftRater.svg?style=flat)](http://cocoapods.org/pods/SwiftRater)
 [![License](https://img.shields.io/cocoapods/l/SwiftRater.svg?style=flat)](http://cocoapods.org/pods/SwiftRater)
 [![Platform](https://img.shields.io/cocoapods/p/SwiftRater.svg?style=flat)](http://cocoapods.org/pods/SwiftRater)
