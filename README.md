@@ -70,7 +70,8 @@ You can set properties you want to apply.
 | showLaterButton | Show Later button in review request dialong, valid for iOS10.2 or before devices.|
 | daysBeforeReminding | Days until reminder popup if the user chooses `rate later`,  valid for iOS10.2 or before devices.      |
 
-2.Call `SwiftRater.check()` in `viewDidAppear` of ViewController where you want to show review request dialog.
+2.Call `SwiftRater.check()` in `viewDidAppear` of ViewController where you want to show review request dialog. If conditions are met, SwiftRater will show review request popup.
+
 ```
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -79,7 +80,7 @@ You can set properties you want to apply.
 
 ```
 
-3(Optional).For `significantUsesUntilPrompt`, you need to add `SwiftRater.incrementSignificantUsageCount`
+3(Optional).For `significantUsesUntilPrompt`, you need to add `SwiftRater.incrementSignificantUsageCount` in siginificant action for your app.
 
 ```
 func postComment() {
