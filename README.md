@@ -91,6 +91,25 @@ func postComment() {
 
 ```
 
+## Example
+
+This example states that the rating request is only shown when the app has been launched 5 times and after 7 days, remind 5 days after if later selected.
+
+```
+SwiftRater.daysUntilPrompt = 7
+SwiftRater.usesUntilPrompt = 5
+SwiftRater.daysBeforeReminding = 5
+SwiftRater.appLaunched()
+```
+
+If you wanted to show the request after 5 days only and remind 7 days after if later selected, you can set the following:
+
+```
+SwiftRater.daysUntilPrompt = 5
+SwiftRater.daysBeforeReminding = 7
+SwiftRater.appLaunched()
+```
+
 ## Customize text
 
 You can customize text in review request dialog for iOS10.2 or before devices. Set text in following properties.
@@ -100,7 +119,7 @@ You can customize text in review request dialog for iOS10.2 or before devices. S
 - SwiftRater.alertRateTitle
 - SwiftRater.alertRateLaterTitle
 
-## Example
+## Demo
 
 You can find Demo app in this repo.
 
