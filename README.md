@@ -6,7 +6,7 @@
 
 SwiftRater is a class that you can drop into any iPhone app that will help remind your users to review your app on the App Store/in your app.
 
-This app is written in pure Swift.
+SwiftRater is written in pure Swift.
 
 ## iOS 10.3 〜
 ![SwiftRater1](./Resource/later1.gif)
