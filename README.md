@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/cocoapods/l/SwiftRater.svg?style=flat)](http://cocoapods.org/pods/SwiftRater)
 [![Platform](https://img.shields.io/cocoapods/p/SwiftRater.svg?style=flat)](http://cocoapods.org/pods/SwiftRater)
 
-SwiftRater is a class that you can drop into any iPhone app that will help remind your users to review your app on the App Store.
+SwiftRater is a class that you can drop into any iPhone app that will help remind your users to review your app on the App Store/in your app.
 
 This app is written in pure Swift.
 
