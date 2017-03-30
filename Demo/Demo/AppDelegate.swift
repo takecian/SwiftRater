@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SwiftRater.daysBeforeReminding = 1
         SwiftRater.showLaterButton = true
 //        SwiftRater.showLog = true
-        SwiftRater.debugMode = true
+        SwiftRater.debugMode = true // need to set false when submitting to AppStore!!
         SwiftRater.appLaunched()
 
         return true
