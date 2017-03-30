@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SwiftRater'
-  s.version          = '0.1.0'
-  s.summary          = 'A short description of SwiftRater.'
+  s.version          = '0.0.1'
+  s.summary          = 'A utility that reminds your iPhone app's users to review the app written in pure Swift.'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+SwiftRater is a class that you can drop into any iPhone app that will help remind your users to review your app on the App Store
                        DESC
 
   s.homepage         = 'https://github.com/takecian/SwiftRater'
@@ -26,12 +26,12 @@ TODO: Add long description of the pod here.
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'takecian' => 'takecian@gmail.com' }
   s.source           = { :git => 'https://github.com/takecian/SwiftRater.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.social_media_url = 'https://twitter.com/takecian'
 
   s.ios.deployment_target = '8.0'
 
-  s.source_files = 'SwiftRater/Classes/**/*'
-  
+  s.source_files = 'SwiftRater/SwiftRater/**/*'
+
   # s.resource_bundles = {
   #   'SwiftRater' => ['SwiftRater/Assets/*.png']
   # }
