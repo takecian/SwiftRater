@@ -42,8 +42,6 @@ Setup SwiftRater in AppDelegate.swift.
 
 ```
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-
         SwiftRater.daysUntilPrompt = 7
         SwiftRater.usesUntilPrompt = 10
         SwiftRater.significantUsesUntilPrompt = 3
@@ -57,7 +55,16 @@ Setup SwiftRater in AppDelegate.swift.
 
 ```
 
-Call `SwiftRater.check()` in `viewDidAppear` of ViewController when you want to show review dialog.
+| Property      | Description           |
+| ------------- |:-------------:|
+| debugMode      | Shows review request every time. Default false, **need to set false when you submit app to AppStore**. |
+| daysUntilPrompt      | Shows review request if `daysUntilPrompt` days passed since first app launch. |
+| usesUntilPrompt      | Shows review request if users launch more than `usesUntilPrompt` times.      |
+| significantUsesUntilPrompt | Shows review request if user does significant actions more than `significantUsesUntilPrompt` |
+| showLaterButton | Show Later button in review request dialong, valid for iOS10.2 or before devices.|
+| daysBeforeReminding | Days until reminder popup if the user chooses `rate later`,  valid for iOS10.2 or before devices.      |
+
+Call `SwiftRater.check()` in `viewDidAppear` of ViewController when you want to show review request dialog.
 ```
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -65,6 +72,26 @@ Call `SwiftRater.check()` in `viewDidAppear` of ViewController when you want to 
     }
 
 ```
+
+For `significantUsesUntilPrompt`, you need to add `SwiftRater.incrementSignificantUsageCount`
+
+```
+func postComment() {
+    // do something ..
+
+	SwiftRater.incrementSignificantUsageCount()
+}
+
+```
+
+## Customize text
+
+You can customize text in review request dialog for iOS10.2 or before devices. Set text in following properties.
+- SwiftRater.alertTitle
+- SwiftRater.alertMessage
+- SwiftRater.alertCancelTitle
+- SwiftRater.alertRateTitle
+- SwiftRater.alertRateLaterTitle
 
 ## Example
 
