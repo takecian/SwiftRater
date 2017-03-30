@@ -38,7 +38,33 @@ github "takecian/SwiftRater"
 
 ## Usage
 
-TODO.
+Setup SwiftRater in AppDelegate.swift.
+
+```
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        // Override point for customization after application launch.
+
+        SwiftRater.daysUntilPrompt = 7
+        SwiftRater.usesUntilPrompt = 10
+        SwiftRater.significantUsesUntilPrompt = 3
+        SwiftRater.daysBeforeReminding = 1
+        SwiftRater.showLaterButton = true
+        SwiftRater.debugMode = true
+        SwiftRater.appLaunched()
+
+        return true
+    }
+
+```
+
+Call `SwiftRater.check()` in `viewDidAppear` of ViewController when you want to show review dialog.
+```
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        SwiftRater.check()
+    }
+
+```
 
 ## Example
 
