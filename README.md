@@ -16,7 +16,8 @@ This app is written in pure Swift.
 
 ## Requirements
 
-iOS 8.0 or later, written in Swift3.
+iOS 8.0 or later, written in Swift.
+Xcode 8.2 or later.
 
 ## Installation
 
