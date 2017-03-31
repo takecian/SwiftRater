@@ -94,6 +94,22 @@
 		645FF6AB1E8BAC43001D5563 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		645FF6AC1E8BAC4A001D5563 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
 		645FF6AD1E8BAC4A001D5563 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		64B62F5B1E8E4AB6000FFF09 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Main.strings; sourceTree = "<group>"; };
+		64B62F5C1E8E4AB6000FFF09 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		64B62F5E1E8E4ACE000FFF09 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Main.strings; sourceTree = "<group>"; };
+		64B62F5F1E8E4ACE000FFF09 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		64B62F601E8E4AE2000FFF09 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Main.strings; sourceTree = "<group>"; };
+		64B62F611E8E4AE2000FFF09 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		64B62F621E8E4AFD000FFF09 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Main.strings; sourceTree = "<group>"; };
+		64B62F631E8E4AFD000FFF09 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		64B62F641E8E4B1D000FFF09 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Main.strings; sourceTree = "<group>"; };
+		64B62F651E8E4B1D000FFF09 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		64B62F661E8E4B34000FFF09 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Main.strings; sourceTree = "<group>"; };
+		64B62F671E8E4B34000FFF09 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		64B62F681E8E4B47000FFF09 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Main.strings; sourceTree = "<group>"; };
+		64B62F691E8E4B47000FFF09 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		64B62F6A1E8E4B88000FFF09 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Main.strings; sourceTree = "<group>"; };
+		64B62F6B1E8E4B88000FFF09 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -338,6 +354,14 @@
 				645FF6A81E8BAC3F001D5563 /* pt-BR */,
 				645FF6AA1E8BAC43001D5563 /* pt-PT */,
 				645FF6AC1E8BAC4A001D5563 /* es */,
+				64B62F5B1E8E4AB6000FFF09 /* uk */,
+				64B62F5E1E8E4ACE000FFF09 /* vi */,
+				64B62F601E8E4AE2000FFF09 /* da */,
+				64B62F621E8E4AFD000FFF09 /* pl */,
+				64B62F641E8E4B1D000FFF09 /* tr */,
+				64B62F661E8E4B34000FFF09 /* he */,
+				64B62F681E8E4B47000FFF09 /* hu */,
+				64B62F6A1E8E4B88000FFF09 /* sv */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -356,6 +380,14 @@
 				645FF6A91E8BAC3F001D5563 /* pt-BR */,
 				645FF6AB1E8BAC43001D5563 /* pt-PT */,
 				645FF6AD1E8BAC4A001D5563 /* es */,
+				64B62F5C1E8E4AB6000FFF09 /* uk */,
+				64B62F5F1E8E4ACE000FFF09 /* vi */,
+				64B62F611E8E4AE2000FFF09 /* da */,
+				64B62F631E8E4AFD000FFF09 /* pl */,
+				64B62F651E8E4B1D000FFF09 /* tr */,
+				64B62F671E8E4B34000FFF09 /* he */,
+				64B62F691E8E4B47000FFF09 /* hu */,
+				64B62F6B1E8E4B88000FFF09 /* sv */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
