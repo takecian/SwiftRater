@@ -110,16 +110,17 @@ class UsageDataManager {
     }
 
     var ratingConditionsHaveBeenMet: Bool {
-        guard !debugMode else {
+        guard !debugMode else { // if debug mode, return always true
             printMessage(message: " In debug mode")
             return true
-        } // if debug mode, return always true
-        guard !isRateDone else {
+        }
+        guard !isRateDone else { // if already rated, return false
             printMessage(message: " Already rated")
-            return false } // if already rated, return false
+            return false }
 
         // check if the app has been used enough days
         if daysUntilPrompt != SwiftRaterInvalid {
+            printMessage(message: " will check daysUntilPrompt")
             let dateOfFirstLaunch = Date(timeIntervalSince1970: firstUseDate)
             let timeSinceFirstLaunch = Date().timeIntervalSince(dateOfFirstLaunch)
             let timeUntilRate = 60 * 60 * 24 * daysUntilPrompt;
@@ -128,16 +129,20 @@ class UsageDataManager {
 
         // check if the app has been used enough times
         if usesUntilPrompt != SwiftRaterInvalid {
+            printMessage(message: " will check usesUntilPrompt")
             guard usesCount < usesUntilPrompt else { return true }
         }
 
         // check if the user has done enough significant events
         if significantUsesUntilPrompt != SwiftRaterInvalid {
+            printMessage(message: " will check significantUsesUntilPrompt")
             guard significantEventCount < significantUsesUntilPrompt else { return true }
         }
 
         // if the user wanted to be reminded later, has enough time passed?
         if daysBeforeReminding != SwiftRaterInvalid {
+            printMessage(message: " will check daysBeforeReminding")
+            guard reminderRequestToRate > 0 else { return false }
             let dateOfReminderRequest = Date(timeIntervalSince1970: reminderRequestToRate)
             let timeSinceReminderRequest = Date().timeIntervalSince(dateOfReminderRequest)
             let timeUntilRate = 60 * 60 * 24 * daysBeforeReminding;
