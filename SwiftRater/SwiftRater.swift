@@ -138,6 +138,16 @@ public class SwiftRater: NSObject {
             SwiftRater.shared.showRatingAlert()
         }
     }
+    
+    public static func rateApp() {
+        if #available(iOS 10.3, *) {
+            SKStoreReviewController.requestReview()
+        } else {
+            SwiftRater.shared.rateApp()
+        }
+        
+        UsageDataManager.shared.isRateDone = true
+    }
 
     public static func reset() {
         UsageDataManager.shared.reset()
@@ -303,7 +313,7 @@ extension SwiftRater: UIAlertViewDelegate {
         }
     }
 
-    private func rateApp() {
+    fileprivate func rateApp() {
         #if arch(i386) || arch(x86_64)
             print("APPIRATER NOTE: iTunes App Store is not supported on the iOS simulator. Unable to open App Store page.");
         #else
