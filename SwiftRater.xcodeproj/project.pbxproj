@@ -69,6 +69,7 @@
 		64B62F581E8E49AF000FFF09 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/SwiftRaterLocalization.strings; sourceTree = "<group>"; };
 		64B62F591E8E49C0000FFF09 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/SwiftRaterLocalization.strings; sourceTree = "<group>"; };
 		64B62F5A1E8E49CC000FFF09 /* ms */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ms; path = ms.lproj/SwiftRaterLocalization.strings; sourceTree = "<group>"; };
+		AA4717E21EA3CAC500C4EBC4 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/SwiftRaterLocalization.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +241,7 @@
 				sk,
 				sv,
 				ms,
+				"zh-Hant",
 			);
 			mainGroup = 645FF65B1E8B8CD0001D5563;
 			productRefGroup = 645FF6661E8B8CD0001D5563 /* Products */;
@@ -334,6 +336,7 @@
 				64B62F581E8E49AF000FFF09 /* ro */,
 				64B62F591E8E49C0000FFF09 /* sv */,
 				64B62F5A1E8E49CC000FFF09 /* ms */,
+				AA4717E21EA3CAC500C4EBC4 /* zh-Hant */,
 			);
 			name = SwiftRaterLocalization.strings;
 			sourceTree = "<group>";
