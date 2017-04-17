@@ -143,7 +143,7 @@ public class SwiftRater: NSObject {
         if #available(iOS 10.3, *) {
             SKStoreReviewController.requestReview()
         } else {
-            SwiftRater.shared.rateApp()
+            SwiftRater.shared.rateAppWithAppStore()
         }
         
         UsageDataManager.shared.isRateDone = true
@@ -278,42 +278,36 @@ public class SwiftRater: NSObject {
             SKStoreReviewController.requestReview()
             UsageDataManager.shared.isRateDone = true
         } else {
-            let alertView = { () -> UIAlertView in
-                if SwiftRater.showLaterButton {
-                    return UIAlertView(title: titleText, message: messageText, delegate: self, cancelButtonTitle: cancelText, otherButtonTitles: rateText, laterText)
-                } else {
-                    return UIAlertView(title: titleText, message: messageText, delegate: self, cancelButtonTitle: cancelText, otherButtonTitles: rateText)
-                }
-            }()
-            alertView.show()
+            let alertController = UIAlertController(title: titleText, message: messageText, preferredStyle: .alert)
+            
+            let rateAction = UIAlertAction(title: rateText, style: .default, handler: {
+                [unowned self] action -> Void in
+                self.rateAppWithAppStore()
+                UsageDataManager.shared.isRateDone = true
+            })
+            alertController.addAction(rateAction)
+            
+            if SwiftRater.showLaterButton {
+                alertController.addAction(UIAlertAction(title: laterText, style: .default, handler: {
+                    action -> Void in
+                    UsageDataManager.shared.saveReminderRequestDate()
+                }))
+            }
+            
+            alertController.addAction(UIAlertAction(title: cancelText, style: .cancel, handler: {
+                action -> Void in
+                UsageDataManager.shared.isRateDone = true
+            }))
+            
+            if #available(iOS 9.0, *) {
+                alertController.preferredAction = rateAction
+            }
+            
+            UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
         }
     }
-}
-
-extension SwiftRater: UIAlertViewDelegate {
-    public func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
-        if SwiftRater.showLaterButton {
-            switch buttonIndex {
-            case ButtonIndex.rate.rawValue:
-                rateApp()
-                UsageDataManager.shared.isRateDone = true
-            case ButtonIndex.later.rawValue:
-                UsageDataManager.shared.saveReminderRequestDate()
-            default:
-                UsageDataManager.shared.isRateDone = true
-            }
-        } else {
-            switch buttonIndex {
-            case ButtonIndex.rate.rawValue:
-                rateApp()
-                UsageDataManager.shared.isRateDone = true
-            default:
-                UsageDataManager.shared.isRateDone = true
-            }
-        }
-    }
-
-    fileprivate func rateApp() {
+    
+    private func rateAppWithAppStore() {
         #if arch(i386) || arch(x86_64)
             print("APPIRATER NOTE: iTunes App Store is not supported on the iOS simulator. Unable to open App Store page.");
         #else
