@@ -93,6 +93,17 @@ func postComment() {
 
 ```
 
+4(Optional).Call `SwiftRater.rateApp()` to let your users to review your app on the App Store/in your app directly.
+
+```
+func rateButtonDidClick(sender: UIButton) {
+    // do something ..
+
+	SwiftRater.rateApp()
+}
+
+```
+
 ## Example
 
 This example states that the rating request is only shown when the app has been launched 5 times and after 7 days, remind 5 days after if later selected.
