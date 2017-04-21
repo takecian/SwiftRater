@@ -312,7 +312,7 @@ public class SwiftRater: NSObject {
             print("APPIRATER NOTE: iTunes App Store is not supported on the iOS simulator. Unable to open App Store page.");
         #else
             guard let appId = self.appID else { return }
-            let reviewURL = "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=\(appId)&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software";
+            let reviewURL = "itms-apps://itunes.apple.com/app/id\(appId)?action=write-review";
             guard let url = URL(string: reviewURL) else { return }
             UIApplication.shared.openURL(url)
         #endif
