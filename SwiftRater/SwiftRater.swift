@@ -61,6 +61,8 @@ public class SwiftRater: NSObject {
         }
     }
 
+    public static var useStoreKitIfAvailable: Bool = true
+
     public static var showLaterButton: Bool = true
 
     public static var alertTitle: String?
@@ -140,7 +142,7 @@ public class SwiftRater: NSObject {
     }
     
     public static func rateApp() {
-        if #available(iOS 10.3, *) {
+        if #available(iOS 10.3, *), SwiftRater.useStoreKitIfAvailable {
             SKStoreReviewController.requestReview()
         } else {
             SwiftRater.shared.rateAppWithAppStore()
@@ -274,7 +276,7 @@ public class SwiftRater: NSObject {
     }
 
     private func showRatingAlert() {
-        if #available(iOS 10.3, *) {
+        if #available(iOS 10.3, *), SwiftRater.useStoreKitIfAvailable {
             SKStoreReviewController.requestReview()
             UsageDataManager.shared.isRateDone = true
         } else {
