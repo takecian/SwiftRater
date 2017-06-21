@@ -118,35 +118,36 @@ class UsageDataManager {
             printMessage(message: " Already rated")
             return false }
 
-        // check if the app has been used enough days
-        if daysUntilPrompt != SwiftRaterInvalid {
-            printMessage(message: " will check daysUntilPrompt")
-            let dateOfFirstLaunch = Date(timeIntervalSince1970: firstUseDate)
-            let timeSinceFirstLaunch = Date().timeIntervalSince(dateOfFirstLaunch)
-            let timeUntilRate = 60 * 60 * 24 * daysUntilPrompt;
-            guard Int(timeSinceFirstLaunch) < timeUntilRate else { return true }
-        }
+        if reminderRequestToRate == 0 {
+            // check if the app has been used enough days
+            if daysUntilPrompt != SwiftRaterInvalid {
+                printMessage(message: " will check daysUntilPrompt")
+                let dateOfFirstLaunch = Date(timeIntervalSince1970: firstUseDate)
+                let timeSinceFirstLaunch = Date().timeIntervalSince(dateOfFirstLaunch)
+                let timeUntilRate = 60 * 60 * 24 * daysUntilPrompt;
+                guard Int(timeSinceFirstLaunch) < timeUntilRate else { return true }
+            }
 
-        // check if the app has been used enough times
-        if usesUntilPrompt != SwiftRaterInvalid {
-            printMessage(message: " will check usesUntilPrompt")
-            guard usesCount < usesUntilPrompt else { return true }
-        }
+            // check if the app has been used enough times
+            if usesUntilPrompt != SwiftRaterInvalid {
+                printMessage(message: " will check usesUntilPrompt")
+                guard usesCount < usesUntilPrompt else { return true }
+            }
 
-        // check if the user has done enough significant events
-        if significantUsesUntilPrompt != SwiftRaterInvalid {
-            printMessage(message: " will check significantUsesUntilPrompt")
-            guard significantEventCount < significantUsesUntilPrompt else { return true }
-        }
-
-        // if the user wanted to be reminded later, has enough time passed?
-        if daysBeforeReminding != SwiftRaterInvalid {
-            printMessage(message: " will check daysBeforeReminding")
-            guard reminderRequestToRate > 0 else { return false }
-            let dateOfReminderRequest = Date(timeIntervalSince1970: reminderRequestToRate)
-            let timeSinceReminderRequest = Date().timeIntervalSince(dateOfReminderRequest)
-            let timeUntilRate = 60 * 60 * 24 * daysBeforeReminding;
-            guard Int(timeSinceReminderRequest) < timeUntilRate else { return true }
+            // check if the user has done enough significant events
+            if significantUsesUntilPrompt != SwiftRaterInvalid {
+                printMessage(message: " will check significantUsesUntilPrompt")
+                guard significantEventCount < significantUsesUntilPrompt else { return true }
+            }
+        } else {
+            // if the user wanted to be reminded later, has enough time passed?
+            if daysBeforeReminding != SwiftRaterInvalid {
+                printMessage(message: " will check daysBeforeReminding")
+                let dateOfReminderRequest = Date(timeIntervalSince1970: reminderRequestToRate)
+                let timeSinceReminderRequest = Date().timeIntervalSince(dateOfReminderRequest)
+                let timeUntilRate = 60 * 60 * 24 * daysBeforeReminding;
+                guard Int(timeSinceReminderRequest) < timeUntilRate else { return true }
+            }
         }
 
         return false

@@ -199,6 +199,9 @@ import StoreKit
     }
 
     private func processVersionCheck(withResults results: [String: Any]) {
+        defer {
+            incrementUsageCount()
+        }
         guard let allResults = results["results"] as? [[String: Any]] else {
             self.postError(.appStoreDataRetrievalFailure, underlyingError: nil)
             return
@@ -216,8 +219,6 @@ import StoreKit
         }
 
         self.appID = appID
-        
-        incrementUsageCount()
     }
 
     private func iTunesURLFromString() throws -> URL {
