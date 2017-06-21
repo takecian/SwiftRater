@@ -9,7 +9,7 @@
 import UIKit
 import StoreKit
 
-public class SwiftRater: NSObject {
+@objc public class SwiftRater: NSObject {
 
     enum ButtonIndex: Int {
         case cancel = 0
