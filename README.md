@@ -131,6 +131,7 @@ You can customize text in review request dialog for iOS10.2 or before devices. S
 - SwiftRater.alertCancelTitle
 - SwiftRater.alertRateTitle
 - SwiftRater.alertRateLaterTitle
+- SwiftRater.appName
 
 ## Demo
 
