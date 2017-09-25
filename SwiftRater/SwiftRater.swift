@@ -70,6 +70,7 @@ import StoreKit
     public static var alertCancelTitle: String?
     public static var alertRateTitle: String?
     public static var alertRateLaterTitle: String?
+    public static var appName: String?
 
     public static var showLog: Bool = false
     public static var resetWhenAppUpdated: Bool = true
@@ -109,6 +110,9 @@ import StoreKit
     }
 
     private var mainAppName: String {
+        if let name = SwiftRater.appName {
+            return name
+        }
         if let name = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String {
             return name
         } else if let name = Bundle.main.infoDictionary?["CFBundleName"] as? String {
