@@ -3,6 +3,7 @@
 [![Version](https://img.shields.io/cocoapods/v/SwiftRater.svg?style=flat)](http://cocoapods.org/pods/SwiftRater)
 [![License](https://img.shields.io/cocoapods/l/SwiftRater.svg?style=flat)](http://cocoapods.org/pods/SwiftRater)
 [![Platform](https://img.shields.io/cocoapods/p/SwiftRater.svg?style=flat)](http://cocoapods.org/pods/SwiftRater)
+[![Bitrise](https://www.bitrise.io/app/cdf69e74ec7cb02e/status.svg?token=6LUF4w3ew_nTr21Jgeri4A&branch=master)](https://www.bitrise.io/)
 
 SwiftRater is a class that you can drop into any iPhone app that will help remind your users to review your app on the App Store/in your app.
 
