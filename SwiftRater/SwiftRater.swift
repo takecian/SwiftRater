@@ -139,10 +139,14 @@ import StoreKit
         UsageDataManager.shared.incrementSignificantUseCount()
     }
 
-    public static func check() {
-        if UsageDataManager.shared.ratingConditionsHaveBeenMet {
-            SwiftRater.shared.showRatingAlert()
+    @discardableResult
+    public static func check() -> Bool {
+        guard UsageDataManager.shared.ratingConditionsHaveBeenMet else {
+            return false
         }
+        
+        SwiftRater.shared.showRatingAlert()
+        return true
     }
     
     public static func rateApp() {
