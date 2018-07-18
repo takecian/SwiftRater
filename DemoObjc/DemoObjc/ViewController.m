@@ -18,7 +18,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    [SwiftRater rateApp];
+    [SwiftRater checkWithHost:self];
+//    [SwiftRater rateApp];
 }
 
 

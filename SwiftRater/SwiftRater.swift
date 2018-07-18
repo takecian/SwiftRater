@@ -140,7 +140,7 @@ import StoreKit
     }
 
     @discardableResult
-    public static func check(host: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> Bool {
+    @objc public static func check(host: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> Bool {
         guard UsageDataManager.shared.ratingConditionsHaveBeenMet else {
             return false
         }
