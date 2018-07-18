@@ -66,4 +66,5 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 
-
+DemoObjc/Pods
+DemoObjc/Podfile.lock
