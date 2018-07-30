@@ -77,6 +77,10 @@ import StoreKit
 
     @objc public static var shared = SwiftRater()
 
+    @objc public static var isRateDone: Bool {
+        return UsageDataManager.shared.isRateDone
+    }
+    
     fileprivate var appID: Int?
 
     private static var appVersion: String {
