@@ -131,13 +131,13 @@ class UsageDataManager {
             // check if the app has been used enough times
             if usesUntilPrompt != SwiftRaterInvalid {
                 printMessage(message: " will check usesUntilPrompt")
-                guard usesCount < usesUntilPrompt else { return true }
+                guard usesCount <= usesUntilPrompt else { return true }
             }
 
             // check if the user has done enough significant events
             if significantUsesUntilPrompt != SwiftRaterInvalid {
                 printMessage(message: " will check significantUsesUntilPrompt")
-                guard significantEventCount < significantUsesUntilPrompt else { return true }
+                guard significantEventCount <= significantUsesUntilPrompt else { return true }
             }
         } else {
             // if the user wanted to be reminded later, has enough time passed?

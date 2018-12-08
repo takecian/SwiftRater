@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SwiftRater'
-  s.version          = '1.3.0'
+  s.version          = '1.3.1'
   s.summary          = 'A utility that reminds your iPhone app users to review the app written in pure Swift.'
 
 # This description is used to generate tags and improve search results.
@@ -33,12 +33,4 @@ SwiftRater is a class that you can drop into any iPhone app that will help remin
 
   s.source_files = 'SwiftRater/**/*'
   s.exclude_files = 'SwiftRater/**/*.{plist}'
-
-  # s.resource_bundles = {
-  #   'SwiftRater' => ['SwiftRater/Assets/*.png']
-  # }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
 end
