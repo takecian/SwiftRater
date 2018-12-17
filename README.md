@@ -101,7 +101,7 @@ func postComment() {
 func rateButtonDidClick(sender: UIButton) {
     // do something ..
 
-	SwiftRater.rateApp()
+	SwiftRater.rateApp(host: self)
 }
 
 ```
