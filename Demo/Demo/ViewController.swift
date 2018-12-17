@@ -16,7 +16,7 @@ class ViewController: UIViewController {
         SwiftRater.check(host: self)
 
         // If want to navigate app review page, use `rateApp()`.
-        // SwiftRater.rateApp()
+        // SwiftRater.rateApp(host: self)
     }
 
 }

@@ -95,13 +95,13 @@ func postComment() {
 
 ```
 
-4(Optional).Call `SwiftRater.rateApp()` to let your users to review your app on the App Store/in your app directly.
+4(Optional).Call `SwiftRater.rateApp(host:)` to let your users to review your app on the App Store/in your app directly.
 
 ```
 func rateButtonDidClick(sender: UIButton) {
     // do something ..
 
-	SwiftRater.rateApp()
+	SwiftRater.rateApp(host: self)
 }
 
 ```
