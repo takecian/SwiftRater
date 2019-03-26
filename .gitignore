@@ -73,3 +73,6 @@ DemoObjc/Pods
 DemoObjc/Podfile.lock
 
 .DS_Store
+
+.bundle
+vendor/
