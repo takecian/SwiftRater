@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SwiftRater'
-  s.version          = '1.4.0'
+  s.version          = '1.5.0'
   s.summary          = 'A utility that reminds your iPhone app users to review the app written in pure Swift.'
 
 # This description is used to generate tags and improve search results.
@@ -27,7 +27,7 @@ SwiftRater is a class that you can drop into any iPhone app that will help remin
   s.author           = { 'takecian' => 'takecian@gmail.com' }
   s.source           = { :git => 'https://github.com/takecian/SwiftRater.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/takecian'
-  s.swift_version    = '4.2'
+  s.swift_version    = '5.0'
 
   s.ios.deployment_target = '8.0'
 

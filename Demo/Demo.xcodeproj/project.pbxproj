@@ -240,8 +240,27 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
+				ja,
+				it,
+				fr,
+				de,
+				"zh-Hans",
+				id,
+				el,
+				"pt-BR",
+				"pt-PT",
+				es,
+				uk,
+				vi,
+				da,
+				pl,
+				tr,
+				he,
+				hu,
+				sv,
 			);
 			mainGroup = 645FF5FD1E8A1DCE001D5563;
 			productRefGroup = 645FF6071E8A1DCE001D5563 /* Products */;
@@ -505,7 +524,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -523,7 +542,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
