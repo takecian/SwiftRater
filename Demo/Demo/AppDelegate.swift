@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SwiftRater.daysBeforeReminding = 1
         SwiftRater.showLaterButton = true
         SwiftRater.showLog = true
+//        SwiftRater.countryCode = "fr" // if your app is only avaiable for some coutnries, please add country code.
 //        SwiftRater.debugMode = true // need to set false when submitting to AppStore!!
         SwiftRater.appLaunched()
 
