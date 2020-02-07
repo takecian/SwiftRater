@@ -135,6 +135,23 @@ You can customize text in review request dialog for iOS10.2 or before devices. S
 - SwiftRater.alertRateLaterTitle
 - SwiftRater.appName
 
+## Country code
+
+If your app is only avaiable for some coutnries, please add country code at Setup phase.
+
+```
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        SwiftRater.daysUntilPrompt = 7
+        SwiftRater.usesUntilPrompt = 10
+
+        SwiftRater.countryCode = "fr"
+
+        SwiftRater.debugMode = true
+        SwiftRater.appLaunched()
+        return true
+    }
+```
+
 ## Demo
 
 You can find Demo app in this repo.

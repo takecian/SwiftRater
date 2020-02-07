@@ -65,6 +65,8 @@ import StoreKit
 
     @objc public static var showLaterButton: Bool = true
 
+    @objc public static var countryCode: String?
+
     @objc public static var alertTitle: String?
     @objc public static var alertMessage: String?
     @objc public static var alertCancelTitle: String?
@@ -234,7 +236,11 @@ import StoreKit
         var components = URLComponents()
         components.scheme = "https"
         components.host = "itunes.apple.com"
-        components.path = "/lookup"
+        if let countryCode = SwiftRater.countryCode {
+            components.path = "/\(countryCode)/lookup"
+        } else {
+            components.path = "/lookup"
+        }
 
         let items: [URLQueryItem] = [URLQueryItem(name: "bundleId", value: Bundle.bundleID())]
 
