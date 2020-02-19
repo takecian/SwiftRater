@@ -152,6 +152,22 @@ If your app is only avaiable for some coutnries, please add country code at Setu
     }
 ```
 
+## App ID
+
+Optional, you can set App ID explicitly. If not, SwiftRater will get App ID from appstore by bundle ID.
+
+```
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        SwiftRater.daysUntilPrompt = 7
+        SwiftRater.usesUntilPrompt = 10
+
+        SwiftRater.appID = "1104775712"
+
+        SwiftRater.debugMode = true
+        SwiftRater.appLaunched()
+        return true
+    }
+```
 ## Demo
 
 You can find Demo app in this repo.
