@@ -12,9 +12,6 @@ let package = Package(
             targets: ["SwiftRater"]
         ),
     ],
-    dependencies: [
-        
-    ],
     targets: [
         .target(
             name: "SwiftRater",
