@@ -112,7 +112,7 @@ import StoreKit
     }
 
     private func localize(_ key: String) -> String {
-        return NSLocalizedString(key, tableName: "SwiftRaterLocalization", bundle: Bundle(for: SwiftRater.self), comment: "")
+        return NSLocalizedString(key, tableName: "SwiftRaterLocalization", bundle: Bundle.module, comment: "")
     }
 
     private var mainAppName: String {
