@@ -341,3 +341,11 @@ import StoreKit
         #endif
     }
 }
+
+#if !SWIFT_PACKAGE
+extension Bundle {
+    static var module: Bundle {
+        Bundle(for: SwiftRater.self)
+    }
+}
+#endif
