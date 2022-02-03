@@ -16,12 +16,14 @@ let package = Package(
     targets: [
         .target(
             name: "SwiftRater",
-            path: "SwiftRater"
+            path: "SwiftRater",
+            exclude: ["Info.plist"]
         ),
         .testTarget(
             name: "SwiftRaterTests",
             dependencies: ["SwiftRater"],
-            path: "SwiftRaterTests"
+            path: "SwiftRaterTests",
+            exclude: ["Info.plist"]
         ),
     ]
 )
