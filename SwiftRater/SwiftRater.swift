@@ -6,7 +6,11 @@
 //  Copyright © 2017年 com.takecian. All rights reserved.
 //
 
+#if os(iOS)
 import UIKit
+#elseif os(macOS)
+import AppKit
+#endif
 import StoreKit
 
 @objc public class SwiftRater: NSObject {
@@ -145,6 +149,7 @@ import StoreKit
         UsageDataManager.shared.incrementSignificantUseCount()
     }
 
+    #if os(iOS)
     @discardableResult
     @objc public static func check(host: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> Bool {
         guard UsageDataManager.shared.ratingConditionsHaveBeenMet else {
@@ -161,6 +166,26 @@ import StoreKit
 
         UsageDataManager.shared.isRateDone = true
     }
+    #endif
+
+    #if os(macOS)
+    @discardableResult
+    @objc public static func check(host: NSViewController? = NSApplication.shared.keyWindow?.contentViewController) -> Bool {
+        guard UsageDataManager.shared.ratingConditionsHaveBeenMet else {
+            return false
+        }
+
+        SwiftRater.shared.showRatingAlert(host: host, force: false)
+        return true
+    }
+
+    @objc public static func rateApp(host: NSViewController? = NSApplication.shared.keyWindow?.contentViewController) {
+        NSLog("[SwiftRater] Trying to show review request dialog.")
+        SwiftRater.shared.showRatingAlert(host: host, force: true)
+
+        UsageDataManager.shared.isRateDone = true
+    }
+    #endif
 
     @objc public static func reset() {
         UsageDataManager.shared.reset()
@@ -295,6 +320,7 @@ import StoreKit
         UsageDataManager.shared.incrementSignificantUseCount()
     }
 
+    #if os(iOS)
     private func showRatingAlert(host: UIViewController?, force: Bool) {
         NSLog("[SwiftRater] Trying to show review request dialog.")
         if #available(iOS 10.3, *), SwiftRater.useStoreKitIfAvailable, !force {
@@ -340,6 +366,52 @@ import StoreKit
             UIApplication.shared.openURL(url)
         #endif
     }
+    #endif
+
+    #if os(macOS)
+    private func showRatingAlert(host: NSViewController?, force: Bool) {
+        NSLog("[SwiftRater] Trying to show review request dialog.")
+        if #available(macOS 10.14, *), SwiftRater.useStoreKitIfAvailable, !force {
+            SKStoreReviewController.requestReview()
+            UsageDataManager.shared.isRateDone = true
+        } else {
+            let alert = NSAlert()
+            alert.messageText = titleText
+            alert.informativeText = messageText
+            alert.alertStyle = .warning
+            alert.addButton(withTitle: rateText)
+            if SwiftRater.showLaterButton {
+                alert.addButton(withTitle: laterText)
+            }
+            alert.addButton(withTitle: cancelText)
+
+            let result = alert.runModal()
+
+            switch result {
+            case .alertFirstButtonReturn:
+                self.rateAppWithAppStore()
+                UsageDataManager.shared.isRateDone = true
+            case .alertSecondButtonReturn:
+                if SwiftRater.showLaterButton {
+                    UsageDataManager.shared.saveReminderRequestDate()
+                } else {
+                    UsageDataManager.shared.isRateDone = true
+                }
+            case .alertThirdButtonReturn:
+                UsageDataManager.shared.isRateDone = true
+            default:
+                break
+            }
+        }
+    }
+
+    private func rateAppWithAppStore() {
+        guard let appId = SwiftRater.appID else { return }
+        let reviewURL = "itms-apps://itunes.apple.com/app/id\(appId)?action=write-review";
+        guard let url = URL(string: reviewURL) else { return }
+        NSWorkspace.shared.open(url)
+    }
+    #endif
 }
 
 #if !SWIFT_PACKAGE

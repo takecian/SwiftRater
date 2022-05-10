@@ -30,6 +30,7 @@ SwiftRater is a class that you can drop into any iPhone app that will help remin
   s.swift_versions    = ['5.0', '5.1']
 
   s.ios.deployment_target = '8.0'
+  s.osx.deployment_target = '10.10'
 
   s.source_files = 'SwiftRater/**/*'
   s.exclude_files = 'SwiftRater/**/*.{plist}'
