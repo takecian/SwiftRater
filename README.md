@@ -18,9 +18,17 @@ For iOS 10.3 devices, SwiftRater uses SKStoreReviewController.
 ## 〜 iOS 10.2
 ![SwiftRater2](./Resource/later2.gif)
 
+## macOS 10.14 〜
+![SwiftRater1](./Resource/macos-later1.gif)
+
+For macOS 10.14 devices, SwiftRater uses SKStoreReviewController.
+
+## 〜 macOS 10.14
+![SwiftRater2](./Resource/macos-later2.gif)
+
 ## Requirements
 
-iOS 8.0 or later, written in Swift.
+iOS 8.0, macOS 10.10 or later, written in Swift.
 Xcode 8.2 or later.
 
 ## Installation

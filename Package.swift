@@ -5,7 +5,8 @@ let package = Package(
     name: "SwiftRater",
     defaultLocalization: "en",
     platforms: [
-        .iOS(.v10)
+        .iOS(.v10),
+        .macOS(.v10_10)
     ],
     products: [
         .library(
