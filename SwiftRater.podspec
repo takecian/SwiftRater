@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SwiftRater'
-  s.version          = '1.8.0'
+  s.version          = '2.0.0'
   s.summary          = 'A utility that reminds your iPhone app users to review the app written in pure Swift.'
 
 # This description is used to generate tags and improve search results.
