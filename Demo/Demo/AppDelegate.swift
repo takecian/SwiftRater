@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        SwiftRater.conditionsMetMode = .any
+        SwiftRater.conditionsMetMode = .all
         SwiftRater.daysUntilPrompt = 1
         SwiftRater.usesUntilPrompt = 3
         SwiftRater.significantUsesUntilPrompt = 5
