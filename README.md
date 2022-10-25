@@ -80,6 +80,7 @@ You can set properties you want to apply.
 | Property      | Description           |
 | :------------- |:-------------|
 | debugMode      | Shows review request every time. Default false, **need to set false when you submit app to AppStore**. |
+| conditionsMetMode | Possible values: `.any`, `.all` (default)<br /> Setting this to `.any` allows the prompt to be shown **when any one or more of your criteria have been met**.  |
 | showLaterButton | Show Later button in review request dialong, valid for iOS10.2 or before devices.|
 | daysBeforeReminding | Days until reminder popup if the user chooses `rate later`,  valid for iOS10.2 or before devices.      |
 
@@ -132,6 +133,15 @@ If you wanted to show the request after 5 days only and remind 7 days after if l
 SwiftRater.daysUntilPrompt = 5
 SwiftRater.daysBeforeReminding = 7
 SwiftRater.appLaunched()
+```
+
+If you wanted to show the rquest after a user performs 10 significant actions before 5 days or 5 uses have passed:
+
+```
+SwiftRater.conditionsMetMode = .any
+SwiftRater.daysUntilPrompt = 5
+SwiftRater.usesUntilPrompt = 5
+SwiftRater.significantUsesUntilPrompt = 10
 ```
 
 ## Customize text
