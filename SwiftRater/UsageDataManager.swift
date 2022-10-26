@@ -23,6 +23,7 @@ class UsageDataManager {
 
     var showLaterButton: Bool = true
     var debugMode: Bool = false
+    var conditionsMetMode: SwiftRaterConditionsMetMode = .all
 
     static private let keySwiftRaterFirstUseDate = "keySwiftRaterFirstUseDate"
     static private let keySwiftRaterUseCount = "keySwiftRaterUseCount"
@@ -121,6 +122,10 @@ class UsageDataManager {
         guard !isRateDone else { // if already rated, return false
             printMessage(message: " Already rated")
             return false }
+        
+        var daysUntilPromptMet = false
+        var usesUntilPromptMet = false
+        var significantUsesUntilPromptMet = false
 
         if reminderRequestToRate == 0 {
             // check if the app has been used enough days
@@ -128,21 +133,27 @@ class UsageDataManager {
                 printMessage(message: " will check daysUntilPrompt")
                 let dateOfFirstLaunch = Date(timeIntervalSince1970: firstUseDate)
                 let timeSinceFirstLaunch = Date().timeIntervalSince(dateOfFirstLaunch)
-                let timeUntilRate = 60 * 60 * 24 * daysUntilPrompt;
-                guard Int(timeSinceFirstLaunch) < timeUntilRate else { return true }
+                let timeUntilRate = 60 * 60 * 24 * daysUntilPrompt
+                daysUntilPromptMet = Int(timeSinceFirstLaunch) > timeUntilRate
             }
+            
+            printMessage(message: "daysUntilPromptMet: \(daysUntilPromptMet) \(daysUntilPrompt == SwiftRaterInvalid ? "because daysUntilPromptMet is not set" : "")")
 
             // check if the app has been used enough times
             if usesUntilPrompt != SwiftRaterInvalid {
                 printMessage(message: " will check usesUntilPrompt")
-                guard usesCount <= usesUntilPrompt else { return true }
+                usesUntilPromptMet = usesCount >= usesUntilPrompt
             }
+            
+            printMessage(message: "usesUntilPromptMet: \(usesUntilPromptMet) \(usesUntilPrompt == SwiftRaterInvalid ? "because usesUntilPrompt is not set" : "")")
 
             // check if the user has done enough significant events
             if significantUsesUntilPrompt != SwiftRaterInvalid {
                 printMessage(message: " will check significantUsesUntilPrompt")
-                guard significantEventCount <= significantUsesUntilPrompt else { return true }
+                significantUsesUntilPromptMet = significantEventCount >= significantUsesUntilPrompt
             }
+            
+            printMessage(message: "significantUsesUntilPromptMet: \(significantUsesUntilPromptMet) \(significantUsesUntilPrompt == SwiftRaterInvalid ? "because significantUsesUntilPrompt is not set" : "")")
         } else {
             // if the user wanted to be reminded later, has enough time passed?
             if daysBeforeReminding != SwiftRaterInvalid {
@@ -153,8 +164,12 @@ class UsageDataManager {
                 guard Int(timeSinceReminderRequest) < timeUntilRate else { return true }
             }
         }
-
-        return false
+        
+        if conditionsMetMode == .all {
+            return daysUntilPromptMet && usesUntilPromptMet && significantUsesUntilPromptMet
+        } else {
+            return daysUntilPromptMet || usesUntilPromptMet || significantUsesUntilPromptMet
+        }
     }
 
     func reset() {

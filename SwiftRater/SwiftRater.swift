@@ -13,6 +13,11 @@ import AppKit
 #endif
 import StoreKit
 
+@objc public enum SwiftRaterConditionsMetMode: Int {
+    case all
+    case any
+}
+
 @objc public class SwiftRater: NSObject {
 
     enum ButtonIndex: Int {
@@ -62,6 +67,14 @@ import StoreKit
         }
         set {
             UsageDataManager.shared.debugMode = newValue
+        }
+    }
+    @objc public static var conditionsMetMode: SwiftRaterConditionsMetMode {
+        get {
+            return UsageDataManager.shared.conditionsMetMode
+        }
+        set {
+            UsageDataManager.shared.conditionsMetMode = newValue
         }
     }
 
