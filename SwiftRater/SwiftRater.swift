@@ -92,6 +92,10 @@ import StoreKit
     return UsageDataManager.shared.isRateDone
   }
   
+  @objc public static var isMetConditions : Bool {
+    UsageDataManager.shared.ratingConditionsHaveBeenMet
+  }
+
   @objc public static var appID: String?
   
   private static var appVersion: String {
