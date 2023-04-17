@@ -376,7 +376,7 @@ import StoreKit
             guard let appId = SwiftRater.appID else { return }
             let reviewURL = "itms-apps://itunes.apple.com/app/id\(appId)?action=write-review";
             guard let url = URL(string: reviewURL) else { return }
-            UIApplication.shared.openURL(url)
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         #endif
     }
     #endif
