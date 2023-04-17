@@ -69,6 +69,35 @@ github "takecian/SwiftRater"
 
 ```
 
+If you are using SwiftUI, create AppDelegate class that inherits UIApplicationDelegate and
+configure SwiftRater there. (Thanks @markgravity for the suggetion)
+
+```
+@main
+struct YourApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
+    }
+}
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        SwiftRater.daysUntilPrompt = 7
+        SwiftRater.usesUntilPrompt = 10
+        SwiftRater.significantUsesUntilPrompt = 3
+        SwiftRater.daysBeforeReminding = 1
+        SwiftRater.showLaterButton = true
+        SwiftRater.debugMode = true
+        SwiftRater.appLaunched()
+        return true
+    }
+}
+```
+
 | Property      | Description           |
 | :------------- |:-------------|
 | daysUntilPrompt      | Shows review request if `daysUntilPrompt` days passed since first app launch. |
