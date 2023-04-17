@@ -74,7 +74,7 @@ github "takecian/SwiftRater"
 ```
 
 If you are using SwiftUI, create AppDelegate class that inherits UIApplicationDelegate and
-configure SwiftRater there. (Thanks [@markgravity] for the suggetion)
+configure SwiftRater there. (Thanks [@markgravity](https://github.com/markgravity) for the suggetion)
 
 ```
 @main
