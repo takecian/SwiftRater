@@ -22,7 +22,7 @@ import StoreKit
   
   @objc public static var daysUntilPrompt: Int {
     get {
-      return UsageDataManager.shared.daysUntilPrompt
+      UsageDataManager.shared.daysUntilPrompt
     }
     set {
       UsageDataManager.shared.daysUntilPrompt = newValue
@@ -30,7 +30,7 @@ import StoreKit
   }
   @objc public static var usesUntilPrompt: Int {
     get {
-      return UsageDataManager.shared.usesUntilPrompt
+      UsageDataManager.shared.usesUntilPrompt
     }
     set {
       UsageDataManager.shared.usesUntilPrompt = newValue
@@ -38,7 +38,7 @@ import StoreKit
   }
   @objc public static var significantUsesUntilPrompt: Int {
     get {
-      return UsageDataManager.shared.significantUsesUntilPrompt
+      UsageDataManager.shared.significantUsesUntilPrompt
     }
     set {
       UsageDataManager.shared.significantUsesUntilPrompt = newValue
@@ -47,7 +47,7 @@ import StoreKit
   
   @objc public static var daysBeforeReminding: Int {
     get {
-      return UsageDataManager.shared.daysBeforeReminding
+      UsageDataManager.shared.daysBeforeReminding
     }
     set {
       UsageDataManager.shared.daysBeforeReminding = newValue
@@ -55,7 +55,7 @@ import StoreKit
   }
   @objc public static var debugMode: Bool {
     get {
-      return UsageDataManager.shared.debugMode
+      UsageDataManager.shared.debugMode
     }
     set {
       UsageDataManager.shared.debugMode = newValue
@@ -63,7 +63,7 @@ import StoreKit
   }
   @objc public static var conditionsMetMode: SwiftRaterConditionsMetMode {
     get {
-      return UsageDataManager.shared.conditionsMetMode
+      UsageDataManager.shared.conditionsMetMode
     }
     set {
       UsageDataManager.shared.conditionsMetMode = newValue
@@ -89,7 +89,7 @@ import StoreKit
   @objc public static var shared = SwiftRater()
   
   @objc public static var isRateDone: Bool {
-    return UsageDataManager.shared.isRateDone
+    UsageDataManager.shared.isRateDone
   }
   
   @objc public static var isMetConditions : Bool {
@@ -100,32 +100,32 @@ import StoreKit
   
   private static var appVersion: String {
     get {
-      return Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String ?? "0.0.0"
+      Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String ?? "0.0.0"
     }
   }
   
   private var titleText: String {
-    return SwiftRater.alertTitle ?? String.init(format: localize("Rate %@"), mainAppName)
+    SwiftRater.alertTitle ?? String.init(format: localize("Rate %@"), mainAppName)
   }
   
   private var messageText: String {
-    return SwiftRater.alertMessage ?? String.init(format: localize("Rater.title"), mainAppName)
+    SwiftRater.alertMessage ?? String.init(format: localize("Rater.title"), mainAppName)
   }
   
   private var rateText: String {
-    return SwiftRater.alertRateTitle ?? String.init(format: localize("Rate %@"), mainAppName)
+    SwiftRater.alertRateTitle ?? String.init(format: localize("Rate %@"), mainAppName)
   }
   
   private var cancelText: String {
-    return SwiftRater.alertCancelTitle ?? String.init(format: localize("No, Thanks"), mainAppName)
+    SwiftRater.alertCancelTitle ?? String.init(format: localize("No, Thanks"), mainAppName)
   }
   
   private var laterText: String {
-    return SwiftRater.alertRateLaterTitle ?? String.init(format: localize("Remind me later"), mainAppName)
+    SwiftRater.alertRateLaterTitle ?? String.init(format: localize("Remind me later"), mainAppName)
   }
   
   private func localize(_ key: String) -> String {
-    return NSLocalizedString(key, tableName: "SwiftRaterLocalization", bundle: Bundle.module, comment: "")
+    NSLocalizedString(key, tableName: "SwiftRaterLocalization", bundle: Bundle.module, comment: "")
   }
   
   private var mainAppName: String {
