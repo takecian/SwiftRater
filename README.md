@@ -34,6 +34,10 @@ Xcode 8.2 or later.
 
 ## Installation
 
+### SPM
+
+Open your project setting and navigate to "Package dependencies" tab. Put "https://github.com/takecian/SwiftRater".
+
 ### Cocoapods
 
 SwiftRater is available through [CocoaPods](http://cocoapods.org). To install
@@ -70,7 +74,7 @@ github "takecian/SwiftRater"
 ```
 
 If you are using SwiftUI, create AppDelegate class that inherits UIApplicationDelegate and
-configure SwiftRater there. (Thanks @markgravity for the suggetion)
+configure SwiftRater there. (Thanks [@markgravity] for the suggetion)
 
 ```
 @main
