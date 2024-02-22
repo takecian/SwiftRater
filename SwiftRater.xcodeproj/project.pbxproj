@@ -16,6 +16,7 @@
 		645FF6881E8B8D6A001D5563 /* SwiftRaterLocalization.strings in Resources */ = {isa = PBXBuildFile; fileRef = 645FF68A1E8B8D6A001D5563 /* SwiftRaterLocalization.strings */; };
 		645FF6951E8B9053001D5563 /* SwiftRaterErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645FF6941E8B9053001D5563 /* SwiftRaterErrorCode.swift */; };
 		645FF6971E8B906E001D5563 /* SwiftRaterError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645FF6961E8B906E001D5563 /* SwiftRaterError.swift */; };
+		AA54CF342B86FAE0006BF411 /* PrivacyInfo.xcprivacy in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA54CF322B86FA69006BF411 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +28,19 @@
 			remoteInfo = SwiftRater;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AA54CF332B86FAD9006BF411 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				AA54CF342B86FAE0006BF411 /* PrivacyInfo.xcprivacy in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		645FF6651E8B8CD0001D5563 /* SwiftRater.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftRater.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,6 +84,7 @@
 		64B62F591E8E49C0000FFF09 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/SwiftRaterLocalization.strings; sourceTree = "<group>"; };
 		64B62F5A1E8E49CC000FFF09 /* ms */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ms; path = ms.lproj/SwiftRaterLocalization.strings; sourceTree = "<group>"; };
 		AA4717E21EA3CAC500C4EBC4 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/SwiftRaterLocalization.strings"; sourceTree = "<group>"; };
+		AA54CF322B86FA69006BF411 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +134,7 @@
 				645FF6821E8B8D0B001D5563 /* UsageDataManager.swift */,
 				645FF6681E8B8CD0001D5563 /* SwiftRater.h */,
 				645FF6691E8B8CD0001D5563 /* Info.plist */,
+				AA54CF322B86FA69006BF411 /* PrivacyInfo.xcprivacy */,
 				645FF68A1E8B8D6A001D5563 /* SwiftRaterLocalization.strings */,
 			);
 			path = SwiftRater;
@@ -155,6 +171,7 @@
 				645FF6611E8B8CD0001D5563 /* Frameworks */,
 				645FF6621E8B8CD0001D5563 /* Headers */,
 				645FF6631E8B8CD0001D5563 /* Resources */,
+				AA54CF332B86FAD9006BF411 /* CopyFiles */,
 			);
 			buildRules = (
 			);
