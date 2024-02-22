@@ -32,4 +32,5 @@ SwiftRater is a class that you can drop into any iPhone app that will help remin
 
   s.source_files = 'SwiftRater/**/*'
   s.exclude_files = 'SwiftRater/**/*.{plist}'
+  s.resource_bundles = {"SwiftRater" => ["SwiftRater/PrivacyInfo.xcprivacy"]}
 end
