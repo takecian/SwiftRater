@@ -18,7 +18,8 @@ let package = Package(
         .target(
             name: "SwiftRater",
             path: "SwiftRater",
-            exclude: ["Info.plist"]
+            exclude: ["Info.plist"],
+            resources: [.copy("PrivacyInfo.xcprivacy")]
         ),
         .testTarget(
             name: "SwiftRaterTests",
