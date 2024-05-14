@@ -168,7 +168,7 @@ SwiftRater.daysBeforeReminding = 7
 SwiftRater.appLaunched()
 ```
 
-If you wanted to show the rquest after a user performs 10 significant actions before 5 days or 5 uses have passed:
+If you wanted to show the request after a user performs 10 significant actions before 5 days or 5 uses have passed:
 
 ```
 SwiftRater.conditionsMetMode = .any
