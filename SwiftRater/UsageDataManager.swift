@@ -6,7 +6,7 @@ import AppKit
 
 let SwiftRaterInvalid = -1
 
-class UsageDataManager {
+class UsageDataManager: @unchecked Sendable {
   
   var daysUntilPrompt: Int = SwiftRaterInvalid
   var usesUntilPrompt: Int = SwiftRaterInvalid
@@ -24,7 +24,7 @@ class UsageDataManager {
   static private let keySwiftRaterTrackingVersion = "keySwiftRaterTrackingVersion"
   static private let keySwiftRaterReminderRequestDate = "keySwiftRaterReminderRequestDate"
   
-  static var shared = UsageDataManager()
+  static let shared = UsageDataManager()
   
   let userDefaults = UserDefaults.standard
   
@@ -186,8 +186,11 @@ class UsageDataManager {
   }
   
   private func printMessage(message: String) {
-    if SwiftRater.showLog {
-      print("[SwiftRater] \(message)")
+    Task {
+      let showLog = await SwiftRater.showLog
+      if showLog {
+        print("[SwiftRater] \(message)")
+      }
     }
   }
 }
