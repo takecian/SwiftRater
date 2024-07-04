@@ -177,8 +177,8 @@ class UsageDataManager {
     usesCount = usesCount + 1
   }
   
-  func incrementSignificantUseCount() {
-    significantEventCount = significantEventCount + 1
+  func incrementSignificantUseCount(point: Int = 1) {
+    significantEventCount = significantEventCount + point
   }
   
   func saveReminderRequestDate() {
