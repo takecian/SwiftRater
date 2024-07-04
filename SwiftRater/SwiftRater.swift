@@ -154,8 +154,8 @@ import StoreKit
     SwiftRater.shared.perform()
   }
   
-  @objc public static func incrementSignificantUsageCount() {
-    UsageDataManager.shared.incrementSignificantUseCount()
+  @objc public static func incrementSignificantUsageCount(point: Int = 1) {
+    UsageDataManager.shared.incrementSignificantUseCount(point: point)
   }
   
 #if os(iOS)
@@ -324,11 +324,7 @@ import StoreKit
   private func incrementUsageCount() {
     UsageDataManager.shared.incrementUseCount()
   }
-  
-  private func incrementSignificantUseCount() {
-    UsageDataManager.shared.incrementSignificantUseCount()
-  }
-  
+
 #if os(iOS)
   private func showRatingAlert(host: UIViewController?, force: Bool) {
     NSLog("[SwiftRater] Trying to show review request dialog.")

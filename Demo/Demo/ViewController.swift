@@ -13,7 +13,7 @@ class ViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        SwiftRater.incrementSignificantUsageCount()
+        SwiftRater.incrementSignificantUsageCount(point: 1)
         SwiftRater.check(host: self)
 
         // If want to navigate app review page, use `rateApp()`.
