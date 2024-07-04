@@ -14,9 +14,11 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         SwiftRater.incrementSignificantUsageCount()
+        // If you want to meet the condition for testing purpose, use this.
+        //  SwiftRater.debugMode = true
         SwiftRater.check(host: self)
 
-        // If want to navigate app review page, use `rateApp()`.
+        // If your want to show rating dialog manually, use `rateApp()`.
         // SwiftRater.rateApp(host: self)
     }
 
