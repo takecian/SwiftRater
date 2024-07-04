@@ -10,8 +10,12 @@ import StoreKit
   case any
 }
 
-@objc public class SwiftRater: NSObject {
-  
+@MainActor
+@objc public class SwiftRater: NSObject, @unchecked Sendable {
+
+  private static let staticLock = NSLock()
+  private let lock = NSLock()
+
   enum ButtonIndex: Int {
     case cancel = 0
     case rate = 1
@@ -22,73 +26,216 @@ import StoreKit
   
   @objc public static var daysUntilPrompt: Int {
     get {
-      UsageDataManager.shared.daysUntilPrompt
+      staticLock.lock()
+      defer {
+        staticLock.unlock()
+      }
+      return UsageDataManager.shared.daysUntilPrompt
     }
     set {
+      staticLock.lock()
+      defer {
+        staticLock.unlock()
+      }
       UsageDataManager.shared.daysUntilPrompt = newValue
     }
   }
   @objc public static var usesUntilPrompt: Int {
     get {
-      UsageDataManager.shared.usesUntilPrompt
+      staticLock.lock()
+      defer {
+        staticLock.unlock()
+      }
+      return UsageDataManager.shared.usesUntilPrompt
     }
     set {
+      staticLock.lock()
+      defer {
+        staticLock.unlock()
+      }
       UsageDataManager.shared.usesUntilPrompt = newValue
     }
   }
   @objc public static var significantUsesUntilPrompt: Int {
-    get {
-      UsageDataManager.shared.significantUsesUntilPrompt
+    get {     
+      staticLock.lock()
+      defer {
+        staticLock.unlock()
+      }
+      return UsageDataManager.shared.significantUsesUntilPrompt
     }
     set {
+      staticLock.lock()
+      defer {
+        staticLock.unlock()
+      }
       UsageDataManager.shared.significantUsesUntilPrompt = newValue
     }
   }
   
   @objc public static var daysBeforeReminding: Int {
     get {
-      UsageDataManager.shared.daysBeforeReminding
+      staticLock.lock()
+      defer {
+        staticLock.unlock()
+      }
+      return UsageDataManager.shared.daysBeforeReminding
     }
     set {
+      staticLock.lock()
+      defer {
+        staticLock.unlock()
+      }
       UsageDataManager.shared.daysBeforeReminding = newValue
     }
   }
   @objc public static var debugMode: Bool {
     get {
-      UsageDataManager.shared.debugMode
+      staticLock.lock()
+      defer {
+        staticLock.unlock()
+      }
+      return UsageDataManager.shared.debugMode
     }
     set {
+      staticLock.lock()
+      defer {
+        staticLock.unlock()
+      }
       UsageDataManager.shared.debugMode = newValue
     }
   }
   @objc public static var conditionsMetMode: SwiftRaterConditionsMetMode {
     get {
-      UsageDataManager.shared.conditionsMetMode
+      staticLock.lock()
+      defer {
+        staticLock.unlock()
+      }
+      return UsageDataManager.shared.conditionsMetMode
     }
     set {
+      staticLock.lock()
+      defer {
+        staticLock.unlock()
+      }
       UsageDataManager.shared.conditionsMetMode = newValue
     }
   }
   
-  @objc public static var useStoreKitIfAvailable: Bool = true
-  
-  @objc public static var showLaterButton: Bool = true
-  
-  @objc public static var countryCode: String?
-  
-  @objc public static var alertTitle: String?
-  @objc public static var alertMessage: String?
-  @objc public static var alertCancelTitle: String?
-  @objc public static var alertRateTitle: String?
-  @objc public static var alertRateLaterTitle: String?
-  @objc public static var appName: String?
-  
-  @objc public static var showLog: Bool = false
-  @objc public static var resetWhenAppUpdated: Bool = true
-  
-  @objc public static var shared = SwiftRater()
+  nonisolated(unsafe) private static var _useStoreKitIfAvailable = true
+  @objc public static var useStoreKitIfAvailable: Bool {
+    get {
+      _useStoreKitIfAvailable
+    }
+    set {
+      _useStoreKitIfAvailable = newValue
+    }
+  }
+
+  nonisolated(unsafe) private static var _showLaterButton = true
+  @objc public static var showLaterButton: Bool {
+    get {
+      _showLaterButton
+    }
+    set {
+      _showLaterButton = newValue
+    }
+  }
+
+  nonisolated(unsafe) private static var _countryCode: String?
+  @objc public static var countryCode: String? {
+    get {
+      _countryCode
+    }
+    set {
+      _countryCode = newValue
+    }
+  }
+
+  nonisolated(unsafe) private static var _alertTitle: String?
+  @objc public static var alertTitle: String? {
+    get {
+      _alertTitle
+    }
+    set {
+      _alertTitle = newValue
+    }
+  }
+
+  nonisolated(unsafe) private static var _alertMessage: String?
+  @objc public static var alertMessage: String? {
+    get {
+      _alertMessage
+    }
+    set {
+      _alertMessage = newValue
+    }
+  }
+
+  nonisolated(unsafe) private static var _alertCancelTitle: String?
+  @objc public static var alertCancelTitle: String? {
+    get {
+      _alertCancelTitle
+    }
+    set {
+      _alertCancelTitle = newValue
+    }
+  }
+
+  nonisolated(unsafe) private static var _alertRateTitle: String?
+  @objc public static var alertRateTitle: String? {
+    get {
+      _alertRateTitle
+    }
+    set {
+      _alertRateTitle = newValue
+    }
+  }
+
+  nonisolated(unsafe) private static var _alertRateLaterTitle: String?
+  @objc public static var alertRateLaterTitle: String? {
+    get {
+      _alertRateLaterTitle
+    }
+    set {
+      _alertRateLaterTitle = newValue
+    }
+  }
+
+  nonisolated(unsafe) private static var _appName: String?
+  @objc public static var appName: String? {
+    get {
+      _appName
+    }
+    set {
+      _countryCode = newValue
+    }
+  }
+
+  nonisolated(unsafe) private static var _showLog: Bool = false
+  @objc public static var showLog: Bool {
+    get {
+      _showLog
+    }
+    set {
+      _showLog = newValue
+    }
+  }
+
+  nonisolated(unsafe) private static var _resetWhenAppUpdated: Bool = false
+  @objc public static var resetWhenAppUpdated: Bool {
+    get {
+      _resetWhenAppUpdated
+    }
+    set {
+      _resetWhenAppUpdated = newValue
+    }
+  }
+
+  @objc public static let shared = SwiftRater()
   
   @objc public static var isRateDone: Bool {
+
     UsageDataManager.shared.isRateDone
   }
   
@@ -96,8 +243,24 @@ import StoreKit
     UsageDataManager.shared.ratingConditionsHaveBeenMet
   }
 
-  @objc public static var appID: String?
-  
+  nonisolated(unsafe) private static var _appID: String?
+  @objc public static var appID: String? {
+    get {
+      staticLock.lock()
+      defer {
+        staticLock.unlock()
+      }
+      return _appID
+    }
+    set {
+      staticLock.lock()
+      defer {
+        staticLock.unlock()
+      }
+      _appID = newValue
+    }
+  }
+
   private static var appVersion: String {
     get {
       Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String ?? "0.0.0"
@@ -209,7 +372,9 @@ import StoreKit
         let url = try iTunesURLFromString()
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: 30)
         URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
-          self.processResults(withData: data, response: response, error: error)
+          Task { @MainActor in
+            self.processResults(withData: data, response: response, error: error)
+          }
         }).resume()
       } catch let error {
         postError(.malformedURL, underlyingError: error)
