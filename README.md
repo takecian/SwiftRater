@@ -114,7 +114,7 @@ You can set properties you want to apply.
 | :------------- |:-------------|
 | debugMode      | Shows review request every time. Default false, **need to set false when you submit app to AppStore**. |
 | conditionsMetMode | Possible values: `.any`, `.all` (default)<br /> Setting this to `.any` allows the prompt to be shown **when any one or more of your criteria have been met**.  |
-| showLaterButton | Show Later button in review request dialong, valid for iOS10.2 or before devices.|
+| showLaterButton | Show Later button in review request dialog, valid for iOS10.2 or before devices.|
 | daysBeforeReminding | Days until reminder popup if the user chooses `rate later`,  valid for iOS10.2 or before devices.      |
 
 2.Call `SwiftRater.check()` in `viewDidAppear` of ViewController where you want to show review request dialog. If conditions are met, SwiftRater will show review request popup.
