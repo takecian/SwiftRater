@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SwiftRater'
-  s.version          = '2.2.0'
+  s.version          = '2.2.2'
   s.summary          = 'A utility that reminds your iPhone app users to review the app written in pure Swift.'
   s.platform = :ios, '13.0'
 
