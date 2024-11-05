@@ -20,7 +20,6 @@ SwiftRater is written in pure Swift.
 ## Requirements
 
 iOS 13.0, macOS 10.15 or later, written in Swift.
-Xcode 16.0 or later. If you want to use Xcode 15, please use `2.1.3`.
 
 ## Installation
 
