@@ -323,20 +323,34 @@ import StoreKit
   
 #if os(iOS)
   @discardableResult
-  @objc public static func check(host: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> Bool {
+  @objc @MainActor public static func check(host: UIViewController? = nil) -> Bool {
     guard UsageDataManager.shared.ratingConditionsHaveBeenMet else {
       return false
     }
-    
-    SwiftRater.shared.showRatingAlert(host: host, force: false)
+
+    let viewController = host ?? topViewController()
+    SwiftRater.shared.showRatingAlert(host: viewController, force: false)
     return true
   }
-  
-  @objc public static func rateApp(host: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) {
+
+  @objc @MainActor public static func rateApp(host: UIViewController? = nil) {
     NSLog("[SwiftRater] Trying to show review request dialog.")
-    SwiftRater.shared.showRatingAlert(host: host, force: true)
-    
+    let viewController = host ?? topViewController()
+    SwiftRater.shared.showRatingAlert(host: viewController, force: true)
+
     UsageDataManager.shared.isRateDone = true
+  }
+
+  // Helper method to get top view controller
+  @MainActor private static func topViewController() -> UIViewController? {
+    guard let windowScene = UIApplication.shared.connectedScenes
+      .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene else {
+      return nil
+    }
+
+    return windowScene.windows
+      .first(where: { $0.isKeyWindow })?
+      .rootViewController
   }
 #endif
   
