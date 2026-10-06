@@ -26,9 +26,10 @@ class UsageDataManager: @unchecked Sendable {
   
   static let shared = UsageDataManager()
   
-  let userDefaults = UserDefaults.standard
+  let userDefaults: UserDefaults
   
-  private init() {
+  init(userDefaults: UserDefaults = .standard) {
+    self.userDefaults = userDefaults
     let defaults = [
       UsageDataManager.keySwiftRaterFirstUseDate: 0,
       UsageDataManager.keySwiftRaterUseCount: 0,
@@ -37,8 +38,7 @@ class UsageDataManager: @unchecked Sendable {
       UsageDataManager.keySwiftRaterTrackingVersion: "",
       UsageDataManager.keySwiftRaterReminderRequestDate: 0
     ] as [String : Any]
-    let ud = UserDefaults.standard
-    ud.register(defaults: defaults)
+    userDefaults.register(defaults: defaults)
   }
   
   var isRateDone: Bool {
@@ -115,52 +115,34 @@ class UsageDataManager: @unchecked Sendable {
       printMessage(message: " Already rated")
       return false }
     
-    var daysUntilPromptMet = false
-    var usesUntilPromptMet = false
-    var significantUsesUntilPromptMet = false
-    
-    if reminderRequestToRate == 0 {
-      // check if the app has been used enough days
-      if daysUntilPrompt != SwiftRaterInvalid {
-        printMessage(message: " will check daysUntilPrompt")
-        let dateOfFirstLaunch = Date(timeIntervalSince1970: firstUseDate)
-        let timeSinceFirstLaunch = Date().timeIntervalSince(dateOfFirstLaunch)
-        let timeUntilRate = 60 * 60 * 24 * daysUntilPrompt
-        daysUntilPromptMet = Int(timeSinceFirstLaunch) > timeUntilRate
-      }
-      
-      printMessage(message: "daysUntilPromptMet: \(daysUntilPromptMet) \(daysUntilPrompt == SwiftRaterInvalid ? "because daysUntilPromptMet is not set" : "")")
-      
-      // check if the app has been used enough times
-      if usesUntilPrompt != SwiftRaterInvalid {
-        printMessage(message: " will check usesUntilPrompt")
-        usesUntilPromptMet = usesCount >= usesUntilPrompt
-      }
-      
-      printMessage(message: "usesUntilPromptMet: \(usesUntilPromptMet) \(usesUntilPrompt == SwiftRaterInvalid ? "because usesUntilPrompt is not set" : "")")
-      
-      // check if the user has done enough significant events
-      if significantUsesUntilPrompt != SwiftRaterInvalid {
-        printMessage(message: " will check significantUsesUntilPrompt")
-        significantUsesUntilPromptMet = significantEventCount >= significantUsesUntilPrompt
-      }
-      
-      printMessage(message: "significantUsesUntilPromptMet: \(significantUsesUntilPromptMet) \(significantUsesUntilPrompt == SwiftRaterInvalid ? "because significantUsesUntilPrompt is not set" : "")")
-    } else {
-      // if the user wanted to be reminded later, has enough time passed?
-      if daysBeforeReminding != SwiftRaterInvalid {
-        printMessage(message: " will check daysBeforeReminding")
-        let dateOfReminderRequest = Date(timeIntervalSince1970: reminderRequestToRate)
-        let timeSinceReminderRequest = Date().timeIntervalSince(dateOfReminderRequest)
-        let timeUntilRate = 60 * 60 * 24 * daysBeforeReminding;
-        guard Int(timeSinceReminderRequest) < timeUntilRate else { return true }
-      }
+    // A reminder replaces the initial eligibility criteria until its delay passes.
+    if reminderRequestToRate != 0 {
+      guard daysBeforeReminding != SwiftRaterInvalid else { return false }
+      let timeSinceReminderRequest = Date().timeIntervalSince1970 - reminderRequestToRate
+      let timeUntilRate = 60 * 60 * 24 * daysBeforeReminding
+      return Int(timeSinceReminderRequest) >= timeUntilRate
     }
-    
+
+    // Unconfigured criteria must not prevent `.all` from matching the enabled ones.
+    var conditions: [Bool] = []
+    if daysUntilPrompt != SwiftRaterInvalid {
+      let timeSinceFirstLaunch = Date().timeIntervalSince1970 - firstUseDate
+      let timeUntilRate = 60 * 60 * 24 * daysUntilPrompt
+      conditions.append(Int(timeSinceFirstLaunch) > timeUntilRate)
+    }
+    if usesUntilPrompt != SwiftRaterInvalid {
+      conditions.append(usesCount >= usesUntilPrompt)
+    }
+    if significantUsesUntilPrompt != SwiftRaterInvalid {
+      conditions.append(significantEventCount >= significantUsesUntilPrompt)
+    }
+
+    // No configured criteria should never trigger an automatic prompt.
+    guard !conditions.isEmpty else { return false }
     if conditionsMetMode == .all {
-      return daysUntilPromptMet && usesUntilPromptMet && significantUsesUntilPromptMet
+      return conditions.allSatisfy { $0 }
     } else {
-      return daysUntilPromptMet || usesUntilPromptMet || significantUsesUntilPromptMet
+      return conditions.contains(true)
     }
   }
   
@@ -174,6 +156,8 @@ class UsageDataManager: @unchecked Sendable {
   }
   
   func incrementUseCount() {
+    // Start the day threshold at first use, not at the first eligibility check.
+    _ = firstUseDate
     usesCount = usesCount + 1
   }
   

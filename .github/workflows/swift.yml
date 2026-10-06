@@ -4,10 +4,21 @@ on:
   push:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   build:
-
-    runs-on: macos-15
+    name: Xcode ${{ matrix.xcode }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-15
+            xcode: '16.4'
+          - runner: macos-26
+            xcode: latest-stable
+    runs-on: ${{ matrix.runner }}
 
     steps:
     - name: Checkout
@@ -15,6 +26,45 @@ jobs:
     - name: Set up Xcode
       uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: "16.0"
-    - name: Build
-      run: xcodebuild
+        xcode-version: ${{ matrix.xcode }}
+    - name: Show toolchain
+      run: |
+        xcodebuild -version
+        swift --version
+    - name: Validate package manifest
+      run: swift package dump-package
+    - name: Test macOS package in Swift 5 mode
+      run: swift test
+    - name: Test macOS package in Swift 6 mode
+      run: swift test -Xswiftc -swift-version -Xswiftc 6
+    - name: Build iOS framework
+      run: >-
+        xcodebuild -project SwiftRater.xcodeproj -scheme SwiftRater
+        -destination 'generic/platform=iOS Simulator'
+        CODE_SIGNING_ALLOWED=NO build
+    - name: Select iOS simulator
+      run: |
+        export IOS_SDK_VERSION=$(xcrun --sdk iphonesimulator --show-sdk-version)
+        DEVICE_ID=$(xcrun simctl list devices available -j | python3 -c '
+        import json, os, sys
+        devices = json.load(sys.stdin)["devices"]
+        sdk = tuple(map(int, os.environ["IOS_SDK_VERSION"].split(".")))
+        runtimes = []
+        for runtime, candidates in devices.items():
+            if ".iOS-" in runtime:
+                version = tuple(map(int, runtime.rsplit(".iOS-", 1)[1].split("-")))
+                if version <= sdk:
+                    runtimes.append((version, candidates))
+        for _, candidates in sorted(runtimes, reverse=True):
+            for device in candidates:
+                if device["name"].startswith("iPhone"):
+                    print(device["udid"])
+                    sys.exit(0)
+        sys.exit("No available iPhone simulator")
+        ')
+        echo "SIMULATOR_ID=$DEVICE_ID" >> "$GITHUB_ENV"
+    - name: Test iOS framework
+      run: >-
+        xcodebuild -project SwiftRater.xcodeproj -scheme SwiftRater
+        -destination "platform=iOS Simulator,id=$SIMULATOR_ID"
+        CODE_SIGNING_ALLOWED=NO test

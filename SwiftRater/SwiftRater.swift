@@ -343,31 +343,32 @@ import StoreKit
 
   // Helper method to get top view controller
   @MainActor private static func topViewController() -> UIViewController? {
-    guard let windowScene = UIApplication.shared.connectedScenes
-      .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene else {
-      return nil
+    if let windowScene = UIApplication.shared.connectedScenes
+      .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+      return windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController
     }
 
-    return windowScene.windows
-      .first(where: { $0.isKeyWindow })?
-      .rootViewController
+    // Keep supporting apps that have not adopted the scene-based lifecycle.
+    guard UIApplication.shared.connectedScenes.isEmpty,
+          UIApplication.shared.applicationState == .active else { return nil }
+    return UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController
   }
 #endif
   
 #if os(macOS)
   @discardableResult
-  @objc public static func check(host: NSViewController? = NSApplication.shared.keyWindow?.contentViewController) -> Bool {
+  @objc public static func check(host: NSViewController? = nil) -> Bool {
     guard UsageDataManager.shared.ratingConditionsHaveBeenMet else {
       return false
     }
     
-    SwiftRater.shared.showRatingAlert(host: host, force: false)
+    SwiftRater.shared.showRatingAlert(host: host ?? NSApplication.shared.keyWindow?.contentViewController, force: false)
     return true
   }
   
-  @objc public static func rateApp(host: NSViewController? = NSApplication.shared.keyWindow?.contentViewController) {
+  @objc public static func rateApp(host: NSViewController? = nil) {
     NSLog("[SwiftRater] Trying to show review request dialog.")
-    SwiftRater.shared.showRatingAlert(host: host, force: true)
+    SwiftRater.shared.showRatingAlert(host: host ?? NSApplication.shared.keyWindow?.contentViewController, force: true)
     
     UsageDataManager.shared.isRateDone = true
   }
@@ -507,8 +508,31 @@ import StoreKit
 #if os(iOS)
   private func showRatingAlert(host: UIViewController?, force: Bool) {
     NSLog("[SwiftRater] Trying to show review request dialog.")
-    if #available(iOS 10.3, *), SwiftRater.useStoreKitIfAvailable, !force {
-      SKStoreReviewController.requestReview()
+    if SwiftRater.useStoreKitIfAvailable, !force {
+      if #available(iOS 14.0, *) {
+        // Use the caller's scene so a multi-window app prompts in the right window.
+        // Do not consume eligibility while the host is detached or backgrounded.
+        guard let window = host?.viewIfLoaded?.window else { return }
+        if let scene = window.windowScene {
+          guard scene.activationState == .foregroundActive else { return }
+#if compiler(>=6.0)
+          if #available(iOS 18.0, *) {
+            AppStore.requestReview(in: scene)
+          } else {
+            SKStoreReviewController.requestReview(in: scene)
+          }
+#else
+          SKStoreReviewController.requestReview(in: scene)
+#endif
+        } else {
+          // A visible window without a scene is valid for legacy app lifecycles.
+          guard UIApplication.shared.connectedScenes.isEmpty,
+                UIApplication.shared.applicationState == .active else { return }
+          SKStoreReviewController.requestReview()
+        }
+      } else {
+        SKStoreReviewController.requestReview()
+      }
       UsageDataManager.shared.isRateDone = true
     } else {
       let alertController = UIAlertController(title: titleText, message: messageText, preferredStyle: .alert)
@@ -541,7 +565,7 @@ import StoreKit
   }
   
   private func rateAppWithAppStore() {
-#if arch(i386) || arch(x86_64)
+#if targetEnvironment(simulator)
     print("APPIRATER NOTE: iTunes App Store is not supported on the iOS simulator. Unable to open App Store page.");
 #else
     guard let appId = SwiftRater.appID else { return }
@@ -555,8 +579,18 @@ import StoreKit
 #if os(macOS)
   private func showRatingAlert(host: NSViewController?, force: Bool) {
     NSLog("[SwiftRater] Trying to show review request dialog.")
-    if #available(macOS 10.14, *), SwiftRater.useStoreKitIfAvailable, !force {
+    if SwiftRater.useStoreKitIfAvailable, !force {
+#if compiler(>=6.0)
+      if #available(macOS 15.0, *), let host = host {
+        guard host.viewIfLoaded?.window != nil else { return }
+        AppStore.requestReview(in: host)
+      } else {
+        // Legacy AppKit windows may have a content view without a controller.
+        SKStoreReviewController.requestReview()
+      }
+#else
       SKStoreReviewController.requestReview()
+#endif
       UsageDataManager.shared.isRateDone = true
     } else {
       let alert = NSAlert()
