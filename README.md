@@ -220,6 +220,15 @@ You can find Demo app in this repo.
 
 ## Development
 
+For CocoaPods development, select the Ruby version in `.ruby-version` (3.4.13),
+then install the locked gems and lint the podspec on macOS:
+
+```sh
+gem install bundler -v 2.6.9
+bundle install
+bundle exec pod lib lint SwiftRater.podspec
+```
+
 On a Mac with Xcode selected, run the package tests:
 
 ```sh
